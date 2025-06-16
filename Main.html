@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Admin Guide - OSI Troubleshooting</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .osi-layers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .layer-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-left: 5px solid;
+        }
+
+        .layer-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .layer-7 { border-left-color: #ff6b6b; }
+        .layer-6 { border-left-color: #4ecdc4; }
+        .layer-5 { border-left-color: #45b7d1; }
+        .layer-4 { border-left-color: #96ceb4; }
+        .layer-3 { border-left-color: #ffeaa7; }
+        .layer-2 { border-left-color: #fd79a8; }
+        .layer-1 { border-left-color: #a29bfe; }
+
+        .layer-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .layer-number {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            margin-right: 15px;
+        }
+
+        .layer-7 .layer-number { background: #ff6b6b; }
+        .layer-6 .layer-number { background: #4ecdc4; }
+        .layer-5 .layer-number { background: #45b7d1; }
+        .layer-4 .layer-number { background: #96ceb4; }
+        .layer-3 .layer-number { background: #ffeaa7; color: #333; }
+        .layer-2 .layer-number { background: #fd79a8; }
+        .layer-1 .layer-number { background: #a29bfe; }
+
+        .layer-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .problem-list {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .problem-item {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 3px solid;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .problem-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .problem-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .problem-severity {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: white;
+        }
+
+        .high { background: #e74c3c; }
+        .medium { background: #f39c12; }
+        .low { background: #27ae60; }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 2% auto;
+            padding: 0;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+        }
+
+        .modal-header {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 25px;
+            border-radius: 20px 20px 0 0;
+            position: relative;
+        }
+
+        .close {
+            color: white;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            position: absolute;
+            right: 20px;
+            top: 20px;
+        }
+
+        .close:hover {
+            opacity: 0.7;
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+
+        .packet-tracer-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin: 10px 5px;
+            transition: all 0.3s ease;
+        }
+
+        .packet-tracer-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .active {
+            display: block;
+        }
+
+        .troubleshooting-steps {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .step-number {
+            background: #667eea;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .topology-diagram {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            text-align: center;
+            border: 2px dashed #ddd;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2rem; }
+            .osi-layers { grid-template-columns: 1fr; }
+            .modal-content { width: 95%; margin: 5% auto; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌐 Network Admin Guide</h1>
+            <p>OSI Katmanlarına Göre Network Troubleshooting</p>
+            <p>Computer Networks Dersi - Kapsamlı Admin Kılavuzu</p>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number">10</div>
+                <div>Güncel Network Sorunu</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">7</div>
+                <div>OSI Katmanı</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">15</div>
+                <div>Cisco Packet Tracer Lab</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">100+</div>
+                <div>Troubleshooting Komutu</div>
+            </div>
+        </div>
+
+        <div class="osi-layers">
+            <div class="layer-card layer-7" onclick="toggleLayer(7)">
+                <div class="layer-header">
+                    <div class="layer-number">7</div>
+                    <div class="layer-title">Application Layer</div>
+                </div>
+                <p>HTTP/HTTPS, DNS, DHCP, FTP, SMTP sorunları</p>
+                <div class="problem-list" id="layer-7-problems">
+                    <div class="problem-item" onclick="openModal('dns-resolution')" style="border-left-color: #ff6b6b;">
+                        <div class="problem-title">
+                            DNS Resolution Failure
+                            <span class="problem-severity high">HIGH</span>
+                        </div>
+                        <p>DNS sunucuları yanıt vermiyor veya yanlış IP adresleri döndürüyor</p>
+                    </div>
+                    <div class="problem-item" onclick="openModal('web-service-timeout')" style="border-left-color: #ff6b6b;">
+                        <div class="problem-title">
+                            Web Service Timeout
+                            <span class="problem-severity medium">MEDIUM</span>
+                        </div>
+                        <p>HTTP/HTTPS bağlantıları zaman aşımına uğruyor</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layer-card layer-6" onclick="toggleLayer(6)">
+                <div class="layer-header">
+                    <div class="layer-number">6</div>
+                    <div class="layer-title">Presentation Layer</div>
+                </div>
+                <p>SSL/TLS, Şifreleme, Sıkıştırma sorunları</p>
+                <div class="problem-list" id="layer-6-problems">
+                    <div class="problem-item" onclick="openModal('ssl-certificate')" style="border-left-color: #4ecdc4;">
+                        <div class="problem-title">
+                            SSL Certificate Issues
+                            <span class="problem-severity high">HIGH</span>
+                        </div>
+                        <p>SSL sertifikaları süresi dolmuş veya güvenilir değil</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layer-card layer-5" onclick="toggleLayer(5)">
+                <div class="layer-header">
+                    <div class="layer-number">5</div>
+                    <div class="layer-title">Session Layer</div>
+                </div>
+                <p>Session yönetimi, NetBIOS, RPC sorunları</p>
+                <div class="problem-list" id="layer-5-problems">
+                    <div class="problem-item" onclick="openModal('session-timeout')" style="border-left-color: #45b7d1;">
+                        <div class="problem-title">
+                            Session Timeout Problems
+                            <span class="problem-severity medium">MEDIUM</span>
+                        </div>
+                        <p>Kullanıcı oturumları beklenmedik şekilde sonlanıyor</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layer-card layer-4" onclick="toggleLayer(4)">
+                <div class="layer-header">
+                    <div class="layer-number">4</div>
+                    <div class="layer-title">Transport Layer</div>
+                </div>
+                <p>TCP/UDP, Port, Firewall sorunları</p>
+                <div class="problem-list" id="layer-4-problems">
+                    <div class="problem-item" onclick="openModal('tcp-connection')" style="border-left-color: #96ceb4;">
+                        <div class="problem-title">
+                            TCP Connection Reset
+                            <span class="problem-severity high">HIGH</span>
+                        </div>
+                        <p>TCP bağlantıları sürekli resetleniyor</p>
+                    </div>
+                    <div class="problem-item" onclick="openModal('port-blocking')" style="border-left-color: #96ceb4;">
+                        <div class="problem-title">
+                            Port Blocking Issues
+                            <span class="problem-severity medium">MEDIUM</span>
+                        </div>
+                        <p>Firewall belirli portları blokluyor</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layer-card layer-3" onclick="toggleLayer(3)">
+                <div class="layer-header">
+                    <div class="layer-number">3</div>
+                    <div class="layer-title">Network Layer</div>
+                </div>
+                <p>IP Routing, ICMP, OSPF, BGP sorunları</p>
+                <div class="problem-list" id="layer-3-problems">
+                    <div class="problem-item" onclick="openModal('routing-loop')" style="border-left-color: #ffeaa7;">
+                        <div class="problem-title">
+                            Routing Loop
+                            <span class="problem-severity high">HIGH</span>
+                        </div>
+                        <p>Paketler routing loop'a takılıyor</p>
+                    </div>
+                    <div class="problem-item" onclick="openModal('ip-conflict')" style="border-left-color: #ffeaa7;">
+                        <div class="problem-title">
+                            IP Address Conflict
+                            <span class="problem-severity medium">MEDIUM</span>
+                        </div>
+                        <p>Aynı IP adresi birden fazla cihazda kullanılıyor</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layer-card layer-2" onclick="toggleLayer(2)">
+                <div class="layer-header">
+                    <div class="layer-number">2</div>
+                    <div class="layer-title">Data Link Layer</div>
+                </div>
+                <p>Switching, VLAN, STP, MAC sorunları</p>
+                <div class="problem-list" id="layer-2-problems">
+                    <div class="problem-item" onclick="openModal('vlan-mismatch')" style="border-left-color: #fd79a8;">
+                        <div class="problem-title">
+                            VLAN Mismatch
+                            <span class="problem-severity medium">MEDIUM</span>
+                        </div>
+                        <p>VLAN konfigürasyonları uyumsuz</p>
+                    </div>
+                    <div class="problem-item" onclick="openModal('stp-convergence')" style="border-left-color: #fd79a8;">
+                        <div class="problem-title">
+                            STP Convergence Issues
+                            <span class="problem-severity medium">MEDIUM</span>
+                        </div>
+                        <p>Spanning Tree Protocol yavaş convergence</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layer-card layer-1" onclick="toggleLayer(1)">
+                <div class="layer-header">
+                    <div class="layer-number">1</div>
+                    <div class="layer-title">Physical Layer</div>
+                </div>
+                <p>Kablo, Interface, Hardware sorunları</p>
+                <div class="problem-list" id="layer-1-problems">
+                    <div class="problem-item" onclick="openModal('cable-fault')" style="border-left-color: #a29bfe;">
+                        <div class="problem-title">
+                            Cable Fault
+                            <span class="problem-severity high">HIGH</span>
+                        </div>
+                        <p>Ağ kabloları hasarlı veya bağlantısız</p>
+                    </div>
+                    <div class="problem-item" onclick="openModal('interface-error')" style="border-left-color: #a29bfe;">
+                        <div class="problem-title">
+                            Interface Error Rate
+                            <span class="problem-severity medium">MEDIUM</span>
+                        </div>
+                        <p>Network interface'lerinde yüksek hata oranı</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="problemModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2 id="modal-title">Problem Detayı</h2>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- İçerik buraya dinamik olarak yüklenecek -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Problem veritabanı
+        const problems = {
+            'dns-resolution': {
+                title: 'DNS Resolution Failure',
+                layer: 'Layer 7 - Application',
+                severity: 'High',
+                description: 'DNS sunucuları yanıt vermiyor veya yanlış IP adresleri döndürüyor. Bu durum web sitelerine erişimi engelliyor.',
+                symptoms: [
+                    'Web siteleri yüklenmiyor',
+                    '"Server not found" hataları',
+                    'Ping domain name çalışmıyor ama IP ile çalışıyor',
+                    'DNS lookup süreleri çok uzun'
+                ],
+                causes: [
+                    'DNS sunucu arızası',
+                    'Yanlış DNS konfigürasyonu',
+                    'DNS cache corruption',
+                    'Firewall DNS trafiğini blokluyor'
+                ],
+                solution: `
+                    <div class="troubleshooting-steps">
+                        <h4>🔧 Troubleshooting Adımları:</h4>
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div>
+                                <strong>DNS Connectivity Test:</strong>
+                                <div class="code-block">nslookup google.com
+ping 8.8.8.8
+nslookup google.com 8.8.8.8</div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div>
+                                <strong>DNS Cache Temizleme:</strong>
+                                <div class="code-block">ipconfig /flushdns
+# Linux/Mac için
+sudo systemctl restart systemd-resolved</div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div>
+                                <strong>DNS Server Değiştirme:</strong>
+                                <div class="code-block"># Cisco Router
+ip name-server 8.8.8.8 8.8.4.4
+
+# Windows
+netsh interface ip set dns "Local Area Connection" static 8.8.8.8</div>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                packetTracer: 'DNS_Resolution_Lab.pkt',
+                topology: 'PC → Switch → Router → DNS Server',
+                verification: `
+                    <div class="code-block">show ip dns view
+show hosts
+debug ip dns
+ping domain-name</div>
+                `
+            },
+            'web-service-timeout': {
+                title: 'Web Service Timeout',
+                layer: 'Layer 7 - Application',
+                severity: 'Medium',
+                description: 'HTTP/HTTPS bağlantıları zaman aşımına uğruyor, web servisleri yavaş yanıt veriyor.',
+                symptoms: [
+                    'Web sayfaları yavaş yükleniyor',
+                    'Connection timeout hataları',
+                    'HTTP 504 Gateway Timeout',
+                    'API istekleri başarısız oluyor'
+                ],
+                causes: [
+                    'Web server aşırı yüklü',
+                    'Network latency yüksek',
+                    'Proxy sunucu sorunları',
+                    'Bandwidth yetersizliği'
+                ],
+                solution: `
+                    <div class="troubleshooting-steps">
+                        <h4>🔧 Troubleshooting Adımları:</h4>
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div>
+                                <strong>HTTP Response Time Test:</strong>
+                                <div class="code-block">curl -w "@curl-format.txt" -o /dev/null http://example.com
+traceroute example.com
+mtr example.com</div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div>
+                                <strong>Bandwidth ve Latency Analizi:</strong>
+                                <div class="code-block">iperf3 -c server-ip
+ping -c 10 server-ip
+show interface statistics</div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div>
+                                <strong>HTTP Timeout Ayarları:</strong>
+                                <div class="code-block"># Apache
+Timeout 300
+KeepAliveTimeout 5
+
+# Nginx
+proxy_connect_timeout 60s;
+proxy_read_timeout 300s;</div>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                packetTracer: 'Web_Service_Timeout_Lab.pkt',
+                topology: 'Client → Router → Internet → Web Server',
+                verification: `
+                    <div class="code-block">show tcp brief
+show ip http server status
+debug ip http all</div>
+                `
+            },
+            'ssl-certificate': {
+                title: 'SSL Certificate Issues',
+                layer: 'Layer 6 - Presentation',
+                severity: 'High',
+                description: 'SSL sertifikaları süresi dolmuş, güvenilir değil veya yanlış yapılandırılmış.',
+                symptoms: [
+                    'Browser güvenlik uyarıları',
+                    'SSL handshake failure',
+                    'Certificate expired hataları',
+                    'HTTPS bağlantıları başarısız'
+                ],
+                causes: [
+                    'Sertifika süresi dolmuş',
+                    'Self-signed certificate',
+                    'Wrong certificate chain',
+                    'Certificate name mismatch'
+                ],
+                solution: `
+                    <div class="troubleshooting-steps">
+                        <h4>🔧 Troubleshooting Adımları:</h4>
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div>
+                                <strong>SSL Certificate Kontrolü:</strong>
+                                <div class="code-block">openssl s_client -connect example.com:443
+openssl x509 -in certificate.crt -text -noout
+curl -vI https://example.com</div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div>
+                                <strong>Certificate Validity Check:</strong>
+                                <div class="code-block">echo | openssl s_client -servername example.com -connect example.com:443 2>/dev/null | openssl x509 -noout -dates</div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div>
+                                <strong>Certificate Installation:</strong>
+                                <div class="code-block"># Cisco ASA
+crypto ca trustpoint CA_NAME
+enrollment terminal
+crypto ca authenticate CA_NAME
+crypto ca enroll CA_NAME</div>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                packetTracer: 'SSL_Certificate_Lab.pkt',
+                topology: 'Client → Router → ASA Firewall → HTTPS Server',
+                verification: `
+                    <div class="code-block">show crypto ca certificates
+show ssl stats
+debug ssl openssl errors</div>
+                `
+            },
+            'session-timeout': {
+                title: 'Session Timeout Problems',
+                layer: 'Layer 5 - Session',
+                severity: 'Medium',
+                description: 'Kullanıcı oturumları beklenmedik şekilde sonlanıyor veya session yönetimi düzgün çalışmıyor.',
+                symptoms: [
+                    'Frequent login prompts',
+                    'Session data loss',
+                    'Unexpected logouts',
+                    'Connection drops'
+                ],
+                causes: [
+                    'Aggressive timeout settings',
+                    'Session table overflow',
+                    'Memory limitations',
+                    'Application bugs'
+                ],
+                solution: `
+                    <div class="troubleshooting-steps">
+                        <h4>🔧 Troubleshooting Adımları:</h4>
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div>
+                                <strong>Session Table Analysis:</strong>
+                                <div class="code-block">show tcp brief all
+show conn detail
+show xlate</div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div>
+                                <strong>Timeout Configuration:</strong>
+                                <div class="code-block"># Cisco ASA
+timeout conn 1:00:00
+timeout xlate 3:00:00
+timeout tcp-proxy-reassembly 0:01:00</div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div>
+                                <strong>Session Monitoring:</strong>
+                                <div class="code-block">show memory
+show resource usage
+debug tcp events</div>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                packetTracer: 'Session_Timeout_Lab.pkt',
+                topology: 'Client → ASA → Internal Server',
+                verification: `
+                    <div class="code-block">show conn count
+show memory pools
+show tcp statistics</div>
+                `
+            },
+            'tcp-connection': {
+                title: 'TCP Connection Reset',
+                layer: 'Layer 4 - Transport',
+                severity: 'High',
+                description: 'TCP bağlantıları sürekli resetleniyor, connection established olamıyor.',
+                symptoms: [
+                    'Connection reset by peer',
+                    'TCP handshake failure',
+                    'Intermittent connectivity',
+                    'High retransmission rates'
+                ],
+                causes: [
+                    'Firewall dropping connections',
+                    'TCP sequence number issues',
+                    'Network congestion',
+                    'Server overload'
+                ],
+                solution: `
+                    <div class="troubleshooting-steps">
+                        <h4>🔧 Troubleshooting Adımları:</h4>
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div>
+                                <strong>TCP Connection Analysis:</strong>
+                                <div class="code-block">netstat -an | grep SYN
+ss -tuln
+tcpdump -i any tcp[tcpflags] & tcp-rst != 0</div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div>
+                                <strong>Firewall State Table Check:</strong>
+                                <div class="code-block"># Cisco ASA
+show conn detail
+clear conn all
+show tcp brief</div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div>
+                                <strong>TCP Parameters Tuning:</strong>
+                                <div class="code-block"># Linux
+echo 'net.ipv4.tcp_keepalive_time = 600' >> /etc/sysctl.conf
+echo 'net.ipv4.tcp_keepalive_probes = 3' >> /etc/sysctl.conf
+sysctl -p</div>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                packetTracer: 'TCP_Connection_Reset_Lab.pkt',
+                topology: 'Client → Router → Firewall → Server',
+                verification: `
+                    <div class="code-block">show ip tcp header-compression
+show tcp statistics
+debug ip tcp events</div>
+                `
+            },
+            'port-blocking': {
+                title: 'Port Blocking Issues',
+                layer: 'Layer 4 - Transport',
+                severity: 'Medium',
+                description: 'Firewall veya ACL belirli portları blokluyor, servisler erişilemez durumda.',
+                symptoms: [
+                    'Connection refused errors',
+                    'Services unreachable',
+                    'Port scan shows closed',
+                    'Telnet to port fails'
+                ],
+                causes: [
+                    'Firewall rules blocking ports',
+                    'ACL misconfiguration',
+                    'NAT issues',
+                    'Security group restrictions'
+                ],
+                solution: `
+                    <div class="troubleshooting-steps">
+                        <h4>🔧 Troubleshooting Adımları:</h4>
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div>
+                                <strong>Port Connectivity Test:</strong>
+                                <div class="code-block">telnet server-ip port-number
+nmap -p port-number server-ip
+nc -zv server-ip port-number</div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div>
+                                <strong>Firewall Rules Check:</strong>
+                                <div class="code-block"># Cisco ASA
+show access-list
+show run access-group
+packet-tracer input interface tcp source dest port</div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div>
+                                <strong>Port Opening Configuration:</strong>
+                                <div class="code-block"># Cisco Router ACL
+access-list 100 permit tcp any host server-ip eq port-number
+interface gi0/0
+ip access-group 100 in</div>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                packetTracer: 'Port_Blocking_Lab.pkt',
+                topology: 'Client → Router → ACL → Server',
+                verification: `
+                    <div class="code-block">show access-lists
+show ip access-lists
+debug ip packet detail</div>
+                `
+            },
+            'routing-loop': {
+                title: 'Routing Loop',
+                layer: 'Layer 3 - Network',
+                severity: 'High',
+                description: 'Paketler routing loop\'a takılıyor, TTL değeri sıfıra iniyor.',
+                symptoms: [
+                    'High CPU on routers',
+                    'TTL exceeded messages',
+                    'Slow network performance',
+                    'Traceroute shows loops'
+                ],
+                causes: [
+                    'Incorrect static routes',
+                    'Routing protocol misconfiguration',
+                    'Split horizon disabled',
+                    'Metric issues'
+                ],
+                solution: `
+                    <div class="troubleshooting-steps">
+                        <h4>🔧 Troubleshooting Adımları:</h4>
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div>
+                                <strong>Loop Detection:</strong>
+                                <div class="code-block">traceroute destination-ip
+show ip route
+show ip protocols</div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div>
+                                <strong>Routing Table Analysis:</strong>
+                                <div class="code-block">show ip route summary
+show ip route longer-prefixes
+debug ip routing</div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div>
+                                <strong>Loop Prevention:</strong>
+                                <div class="code-block"># OSPF Configuration
+router ospf 1
+area 0 authentication message-digest
+maximum-paths 1
+distance ospf intra-area 110</div>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                packetTracer: 'Routing_Loop_Lab.pkt',
+                topology: 'Router A ↔ Router B ↔ Router C ↔ Router A',
+                verification: `
+                    <div class="code-block">show ip ospf neighbor
+show ip route ospf
+ping with record route</div>
+                `
+            },
+            'ip-conflict': {
+                title: 'IP Address Conflict',
+                layer: 'Layer 3 - Network',
+                severity: 'Medium',
+                description: 'Aynı IP adresi birden fazla cihazda kullanılıyor, network connectivity sorunları yaşanıyor.',
+                symptoms: [
+                    'Duplicate IP warnings',
+                    'Intermittent connectivity',
+                    'ARP table corruption',
+                    'Network instability'
+                ],
+                causes: [
+                    'Static IP overlap with DHCP',
+                    'Manual IP assignment errors',
+                    'DHCP scope issues',
+                    'Network misconfiguration'
+                ],
+                solution: `
+                    <div class="troubleshooting-steps">
+                        <h4>🔧 Troubleshooting Adımları:</h4>
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div>
+                                <strong>IP Conflict Detection:</strong>
+                                <div class="code-block">arp -a
+ping -c 1 suspect-ip
+nmap -sn network/24</div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div>
+                                <strong>DHCP Pool Check:</strong>
+                                <div class="code-block">show ip dhcp binding
+show ip dhcp pool
+show ip dhcp conflict</div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div>
+                                <strong>Conflict Resolution:</strong>
+                                <div class="code-block"># DHCP Exclusion
+ip dhcp excluded-address 192.168.1.1 192.168.1.10
+clear ip dhcp conflict *
+clear arp-cache</div>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                packetTracer: 'IP_Conflict_Lab.pkt',
+                topology: 'DHCP Server → Switch → Multiple PCs',
+                verification: `
+                    <div class="code-block">show ip dhcp binding all
+show arp
+ping sweep network</div>
+                `
+            },
+            'vlan-mismatch': {
+                title: 'VLAN Mismatch',
+                layer: 'Layer 2 - Data Link',
+                severity: 'Medium',
+                description: 'VLAN konfigürasyonları uyumsuz, inter-VLAN communication sorunları.',
+                symptoms: [
+                    'No connectivity between VLANs',
+                    'Trunk port issues',
+                    'VLAN not propagating',
+                    'Access port problems'
+                ],
+                causes: [
+                    'VLAN ID mismatch',
+                    'Trunk configuration errors',
+                    'Native VLAN mismatch',
+                    'VTP domain issues'
+                ],
+                solution: `
+                    <div class="troubleshooting-steps">
+                        <h4>🔧 Troubleshooting Adımları:</h4>
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div>
+                                <strong>VLAN Status Check:</strong>
+                                <div class="code-block">show vlan brief
+show interfaces trunk
+show vtp status</div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div>
+                                <strong>Port Assignment Verification:</strong>
+                                <div class="code-block">show interfaces switchport
+show mac address-table vlan vlan-id
+show spanning-tree vlan vlan-id</div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div>
+                                <strong>VLAN Configuration Fix:</strong>
+                                <div class="code-block">vlan 10
+name Sales
+exit
+interface gi0/1
+switchport mode access
+switchport access vlan 10</div>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                packetTracer: 'VLAN_Mismatch_Lab.pkt',
+                topology: 'PC1 (VLAN10) → Switch → Router → Switch → PC2 (VLAN20)',
+                verification: `
+                    <div class="code-block">show vlan id 10
+show interfaces gi0/1 switchport
+ping across VLANs</div>
+                `
+            },
+            'stp-convergence': {
+                title: 'STP Convergence Issues',
+                layer: 'Layer 2 - Data Link',
+                severity: 'Medium',
+                description: 'Spanning Tree Protocol yavaş convergence, loop prevention sorunları.',
+                symptoms: [
+                    'Slow network convergence',
+                    'Temporary connectivity loss',
+                    'Port state flapping',
+                    'Bridge loops'
+                ],
+                causes: [
+                    'Suboptimal STP configuration',
+                    'Priority issues',
+                    'PortFast not enabled',
+                    'BPDU guard problems'
+                ],
+                solution: `
+                    <div class="troubleshooting-steps">
+                        <h4>🔧 Troubleshooting Adımları:</h4>
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div>
+                                <strong>STP Status Analysis:</strong>
+                                <div class="code-block">show spanning-tree
+show spanning-tree root
+show spanning-tree interface detail</div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div>
+                                <strong>Root Bridge Verification:</strong>
+                                <div class="code-block">show spanning-tree summary
+show spanning-tree bridge
+debug spanning-tree events</div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div>
+                                <strong>STP Optimization:</strong>
+                                <div class="code-block"># Root Bridge Setup
+spanning-tree vlan 1 priority 4096
+# PortFast Configuration
+interface range gi0/1-24
+spanning-tree portfast
+spanning-tree bpduguard enable</div>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                packetTracer: 'STP_Convergence_Lab.pkt',
+                topology: 'Switch1 ↔ Switch2 ↔ Switch3 ↔ Switch1 (Triangle)',
+                verification: `
+                    <div class="code-block">show spanning-tree summary totals
+show spanning-tree inconsistentports
+show spanning-tree statistics</div>
+                `
+            },
+            'cable-fault': {
+                title: 'Cable Fault',
+                layer: 'Layer 1 - Physical',
+                severity: 'High',
+                description: 'Ağ kabloları hasarlı, bağlantısız veya yanlış tip kablo kullanılıyor.',
+                symptoms: [
+                    'Link down status',
+                    'No carrier signal',
+                    'High error rates',
+                    'Intermittent connections'
+                ],
+                causes: [
+                    'Damaged cables',
+                    'Loose connections',
+                    'Wrong cable type',
+                    'Electromagnetic interference'
+                ],
+                solution: `
+                    <div class="troubleshooting-steps">
+                        <h4>🔧 Troubleshooting Adımları:</h4>
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div>
+                                <strong>Physical Link Check:</strong>
+                                <div class="code-block">show interfaces status
+show interfaces gi0/1
+show controllers ethernet gi0/1</div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div>
+                                <strong>Cable Testing:</strong>
+                                <div class="code-block"># Cable TDR Test
+test cable-diagnostics tdr interface gi0/1
+show cable-diagnostics tdr interface gi0/1</div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div>
+                                <strong>Interface Reset:</strong>
+                                <div class="code-block">interface gi0/1
+shutdown
+no shutdown
+# Auto-negotiation
+speed auto
+duplex auto</div>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                packetTracer: 'Cable_Fault_Lab.pkt',
+                topology: 'PC → Faulty Cable → Switch → Router',
+                verification: `
+                    <div class="code-block">show interfaces counters errors
+show environment power
+show interfaces description</div>
+                `
+            },
+            'interface-error': {
+                title: 'Interface Error Rate',
+                layer: 'Layer 1 - Physical',
+                severity: 'Medium',
+                description: 'Network interface\'lerinde yüksek hata oranı, paket kayıpları yaşanıyor.',
+                symptoms: [
+                    'High CRC errors',
+                    'Input/output errors',
+                    'Collisions detected',
+                    'Frame errors'
+                ],
+                causes: [
+                    'Hardware malfunction',
+                    'Duplex mismatch',
+                    'Speed mismatch',
+                    'Environmental issues'
+                ],
+                solution: `
+                    <div class="troubleshooting-steps">
+                        <h4>🔧 Troubleshooting Adımları:</h4>
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div>
+                                <strong>Error Statistics:</strong>
+                                <div class="code-block">show interfaces gi0/1 | include error
+show interfaces gi0/1 accounting
+clear counters gi0/1</div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div>
+                                <strong>Duplex/Speed Check:</strong>
+                                <div class="code-block">show interfaces gi0/1 status
+show interfaces gi0/1 capabilities
+show auto discovery neighbors</div>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div>
+                                <strong>Interface Optimization:</strong>
+                                <div class="code-block">interface gi0/1
+duplex full
+speed 1000
+no auto-negotiation
+mtu 1500</div>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                packetTracer: 'Interface_Error_Lab.pkt',
+                topology: 'Router1 → High Error Link → Router2',
+                verification: `
+                    <div class="code-block">show interfaces summary
+show interfaces counters
+show logging | include interface</div>
+                `
+            }
+        };
+
+        function toggleLayer(layerNum) {
+            const problemList = document.getElementById(`layer-${layerNum}-problems`);
+            problemList.classList.toggle('active');
+        }
+
+        function openModal(problemId) {
+            const problem = problems[problemId];
+            if (!problem) return;
+
+            document.getElementById('modal-title').textContent = problem.title;
+            
+            const modalBody = document.getElementById('modal-body');
+            modalBody.innerHTML = `
+                <div class="section">
+                    <h3>📋 Problem Özeti</h3>
+                    <p><strong>Katman:</strong> ${problem.layer}</p>
+                    <p><strong>Önem Derecesi:</strong> <span class="problem-severity ${problem.severity.toLowerCase()}">${problem.severity}</span></p>
+                    <p><strong>Açıklama:</strong> ${problem.description}</p>
+                </div>
+
+                <div class="section">
+                    <h3>🔍 Belirtiler</h3>
+                    <ul>
+                        ${problem.symptoms.map(symptom => `<li>${symptom}</li>`).join('')}
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h3>⚠️ Olası Nedenler</h3>
+                    <ul>
+                        ${problem.causes.map(cause => `<li>${cause}</li>`).join('')}
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h3>💡 Çözüm</h3>
+                    ${problem.solution}
+                </div>
+
+                <div class="section">
+                    <h3>🌐 Network Topology</h3>
+                    <div class="topology-diagram">
+                        <h4>📊 ${problem.topology}</h4>
+                        <p>Bu laboratuvar senaryosu Cisco Packet Tracer'da test edilebilir.</p>
+                        <button class="packet-tracer-btn" onclick="downloadPkt('${problem.packetTracer}')">
+                            📥 ${problem.packetTracer} İndir
+                        </button>
+                        <button class="packet-tracer-btn" onclick="showTopologyDetails('${problemId}')">
+                            🔍 Topology Detayları
+                        </button>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>✅ Verification Commands</h3>
+                    ${problem.verification}
+                </div>
+
+                <div class="section">
+                    <h3>📚 Additional Resources</h3>
+                    <button class="packet-tracer-btn" onclick="generateReport('${problemId}')">📄 PDF Rapor Oluştur</button>
+                    <button class="packet-tracer-btn" onclick="exportConfig('${problemId}')">⚙️ Config Export</button>
+                    <button class="packet-tracer-btn" onclick="showRelatedProblems('${problemId}')">🔗 İlgili Problemler</button>
+                </div>
+            `;
+
+            document.getElementById('problemModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('problemModal').style.display = 'none';
+        }
+
+        function downloadPkt(filename) {
+            alert(`📥 ${filename} dosyası indiriliyor...\n\nBu dosya şunları içerir:\n• Tam network topology\n• Önceden yapılandırılmış cihazlar\n• Problem senaryosu\n• Step-by-step lab guide`);
+        }
+
+        function showTopologyDetails(problemId) {
+            const problem = problems[problemId];
+            alert(`🌐 Topology Detayları: ${problem.title}\n\n📊 Network Yapısı:\n${problem.topology}\n\n🔧 Bu laboratuvarda şunları öğreneceksiniz:\n• Problem identification\n• Troubleshooting methodology\n• Solution implementation\n• Verification techniques`);
+        }
+
+        function generateReport(problemId) {
+            const problem = problems[problemId];
+            alert(`📄 ${problem.title} için PDF rapor oluşturuluyor...\n\nRapor içeriği:\n• Executive Summary\n• Technical Analysis\n• Step-by-step Solution\n• Best Practices\n• Prevention Methods`);
+        }
+
+        function exportConfig(problemId) {
+            const problem = problems[problemId];
+            alert(`⚙️ ${problem.title} için configuration export...\n\nExport dosyaları:\n• Router configurations\n• Switch configurations\n• Firewall rules\n• Monitoring scripts`);
+        }
+
+        function showRelatedProblems(problemId) {
+            alert(`🔗 İlgili Problemler ve Çözümler:\n\n• Network Security Issues\n• Performance Optimization\n• Redundancy Configuration\n• Monitoring & Alerting\n• Capacity Planning`);
+        }
+
+        // Modal dışına tıklandığında kapat
+        window.onclick = function(event) {
+            const modal = document.getElementById('problemModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Sayfa yüklendiğinde animasyon
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.layer-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    card.style.transition = 'all 0.5s ease';
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100);
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>
