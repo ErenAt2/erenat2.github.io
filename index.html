@@ -1063,7 +1063,7 @@ MACs hmac-sha2-256,hmac-sha2-512</div>
             </div>
         </div>
     `,
-    packetTracer: '../CNProject/CNP/SSHConnectionL6/SSH Connection Fails Due to Encryption Mismatch.pkt',
+    packetTracer: '../CNP/SSHConnectionL6/SSH Connection Fails Due to Encryption Mismatch.pkt',
     topology: 'Client → Switch → Router → SSH Server',
     image: 'images/ssh-topology.png',
     verification: `
@@ -1198,7 +1198,7 @@ netstat -an | grep ESTABLISHED | wc -l
             </div>
         </div>
     `,
-    packetTracer: '../CNProject/CNP/SessionTimeoutL5/Session Timeout - SSH Connection Keeps Disconnecting.pkt',
+    packetTracer: '../CNP/SessionTimeoutL5/Session Timeout - SSH Connection Keeps Disconnecting.pkt',
     topology: 'Client → ASA Firewall → Web Server or SSH Server',
     image: 'images/session-topology.png',
     verification: `
@@ -1572,7 +1572,7 @@ show tcp brief all
             </div>
         </div>
     `,
-    packetTracer: '../CNProject/CNP/TCPRetransmissionL4/TCP Retransmission Issue.pkt',
+    packetTracer: '../CNP/TCPRetransmissionL4/TCP Retransmission Issue.pkt',
     topology: 'Client → Switch → Router → Server (High Load)',
     image: 'images/Ekran görüntüsü 2025-06-22 170841.png',
     verification: `
@@ -1677,7 +1677,7 @@ ip access-group 101 in
             </div>
         </div>
     `,
-    packetTracer: 'CNProject/CNP/PortFilteringL4/Port Filtering.pkt',
+    packetTracer: '../CNP/PortFilteringL4/Port Filtering.pkt',
     topology: 'Client → Router with ACL/Firewall → Server',
     image: 'images/port-filtering-topology.png',
     verification: `
@@ -2146,7 +2146,7 @@ ip access-group 101 in
             </div>
         </div>
     `,
-    packetTracer: '../CNProject/CNP/TrafficBlockedL3/Traffic Blocked Due to ACL Misconfiguration.pkt',
+    packetTracer: '../CNP/TrafficBlockedL3/Traffic Blocked Due to ACL Misconfiguration.pkt',
     topology: 'Client (VLAN1) → L3 Switch → Router (ACL) → Server (VLAN2)',
     image: 'images/traffic-blocked-topology.png',
     verification: `
@@ -2565,7 +2565,7 @@ switchport port-security violation shutdown
             </div>
         </div>
     `,
-    packetTracer: '../CNProject/CNP/MACFlappingL2/Cisco.pkt',
+    packetTracer: '../CNP/MACFlappingL2/Cisco.pkt',
     topology: 'Switch1 ↔ Switch2 ↔ VMs (loop or duplicate MAC)',
     image: 'images/mac-flapping-topology.png',
     verification: `
@@ -2784,7 +2784,7 @@ show interfaces fa0/1 | include errors
             </div>
         </div>
     `,
-    packetTracer: '../CNProject/CNP/PortErrorL1/Port Error.pkt"t',
+    packetTracer: '../CNP/PortErrorL1/Port Error.pkt',
     topology: 'PC ↔ Faulty Cable ↔ Switch (Port Admin Down or CRC Errors)',
     image: 'images/port-error-topology.png',
     verification: `
@@ -2888,7 +2888,7 @@ no shutdown
             </div>
         </div>
     `,
-    packetTracer: '../CNProject/CNP/Incorrect Cable ConnectionL1/Incorrect Cable Connection Between Switch and PC.pkt',
+    packetTracer: '../CNP/Incorrect Cable ConnectionL1/Incorrect Cable Connection Between Switch and PC.pkt',
     topology: 'Switch ↔ Switch (Incorrect Cable) or PC ↔ Switch (Wrong Cable)',
     image: 'images/incorrect-cable-topology.png',
     verification: `
