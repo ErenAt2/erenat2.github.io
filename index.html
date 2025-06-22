@@ -149,7 +149,7 @@
 
         .high { background: #e74c3c; }
         .medium { background: #f39c12; }
-        .low { background: #27ae60; }
+        .CiscoPacket { background: #27ae60; }
 
         .modal {
             display: none;
@@ -315,26 +315,27 @@
     <div class="container">
         <div class="header">
             <h1>🌐 Network Admin Guide</h1>
-            <p>OSI Katmanlarına Göre Network Troubleshooting</p>
-            <p>Computer Networks Dersi - Kapsamlı Admin Kılavuzu</p>
+            <p>Network Troubleshooting by OSI Layers</p>
+            <p>Computer Networks Course – Comprehensive Admin Guide</p>
+            <p>💡 Important Note: Only the problems marked with the green CiscoPacket tag include downloadable .pkt simulation files compatible with Cisco Packet Tracer. These allow hands-on experimentation with pre-built topologies.</p>
         </div>
 
         <div class="stats">
             <div class="stat-card">
-                <div class="stat-number">10</div>
-                <div>Güncel Network Sorunu</div>
+                <div class="stat-number">22</div>
+                <div>Current Network Problems</div>
             </div>
             <div class="stat-card">
                 <div class="stat-number">7</div>
-                <div>OSI Katmanı</div>
+                <div>OSI Layers</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number">15</div>
-                <div>Cisco Packet Tracer Lab</div>
+                <div class="stat-number">10</div>
+                <div>Cisco Packet Tracer Labs</div>
             </div>
             <div class="stat-card">
                 <div class="stat-number">100+</div>
-                <div>Troubleshooting Komutu</div>
+                <div>Troubleshooting Commands</div>
             </div>
         </div>
 
@@ -344,38 +345,51 @@
                     <div class="layer-number">7</div>
                     <div class="layer-title">Application Layer</div>
                 </div>
-                <p>HTTP/HTTPS, DNS, DHCP, FTP, SMTP sorunları</p>
+                <p>HTTP/HTTPS, DNS, DHCP, FTP, SMTP issues</p>
                 <div class="problem-list" id="layer-7-problems">
                     <div class="problem-item" onclick="openModal('dns-resolution')" style="border-left-color: #ff6b6b;">
                         <div class="problem-title">
                             DNS Resolution Failure
                             <span class="problem-severity high">HIGH</span>
                         </div>
-                        <p>DNS sunucuları yanıt vermiyor veya yanlış IP adresleri döndürüyor</p>
+                        <p>DNS servers are not responding or return incorrect IPs</p>
                     </div>
                     <div class="problem-item" onclick="openModal('web-service-timeout')" style="border-left-color: #ff6b6b;">
                         <div class="problem-title">
                             Web Service Timeout
                             <span class="problem-severity medium">MEDIUM</span>
                         </div>
-                        <p>HTTP/HTTPS bağlantıları zaman aşımına uğruyor</p>
+                        <p>HTTP/HTTPS connections are timing out.</p>
+                    </div>
+                    <div class="problem-item" onclick="openModal('dhcp-not-responding')" style="border-left-color: #ff6b6b;">
+                        <div class="problem-title">
+                            DHCP Server Not Responding
+                            <span class="problem-severity CiscoPacket">CiscoPacket</span>
+                        </div>
+                        <p>The client (PC) sends out a DHCP Discover packet, but no DHCP Offer is received from the server.</p>
                     </div>
                 </div>
             </div>
-
             <div class="layer-card layer-6" onclick="toggleLayer(6)">
                 <div class="layer-header">
                     <div class="layer-number">6</div>
                     <div class="layer-title">Presentation Layer</div>
                 </div>
-                <p>SSL/TLS, Şifreleme, Sıkıştırma sorunları</p>
+                <p>SSL/TLS, Encryption, Compression issues</p>
                 <div class="problem-list" id="layer-6-problems">
                     <div class="problem-item" onclick="openModal('ssl-certificate')" style="border-left-color: #4ecdc4;">
                         <div class="problem-title">
                             SSL Certificate Issues
                             <span class="problem-severity high">HIGH</span>
                         </div>
-                        <p>SSL sertifikaları süresi dolmuş veya güvenilir değil</p>
+                        <p>SSL certificates are expired or untrusted</p>
+                    </div>
+                    <div class="problem-item" onclick="openModal('ssh-encryption-mismatch')" style="border-left-color: #4ecdc4;">
+                        <div class="problem-title">
+                            SSH Encryption Mismatch
+                            <span class="problem-severity CiscoPacket">CiscoPacket</span>
+                        </div>
+                        <p>SSH connection fails due to encryption mismatch</p>
                     </div>
                 </div>
             </div>
@@ -385,14 +399,14 @@
                     <div class="layer-number">5</div>
                     <div class="layer-title">Session Layer</div>
                 </div>
-                <p>Session yönetimi, NetBIOS, RPC sorunları</p>
+                <p>Session management, NetBIOS, RPC issues</p>
                 <div class="problem-list" id="layer-5-problems">
                     <div class="problem-item" onclick="openModal('session-timeout')" style="border-left-color: #45b7d1;">
                         <div class="problem-title">
                             Session Timeout Problems
-                            <span class="problem-severity medium">MEDIUM</span>
+                            <span class="problem-severity CiscoPacket">CiscoPacket</span>
                         </div>
-                        <p>Kullanıcı oturumları beklenmedik şekilde sonlanıyor</p>
+                        <p>SSH connection keeps disconnecting</p>
                     </div>
                 </div>
             </div>
@@ -402,45 +416,79 @@
                     <div class="layer-number">4</div>
                     <div class="layer-title">Transport Layer</div>
                 </div>
-                <p>TCP/UDP, Port, Firewall sorunları</p>
+                <p>TCP/UDP, Port, Firewall issues</p>
                 <div class="problem-list" id="layer-4-problems">
                     <div class="problem-item" onclick="openModal('tcp-connection')" style="border-left-color: #96ceb4;">
                         <div class="problem-title">
                             TCP Connection Reset
                             <span class="problem-severity high">HIGH</span>
                         </div>
-                        <p>TCP bağlantıları sürekli resetleniyor</p>
+                        <p>TCP connections are constantly being reset</p>
                     </div>
                     <div class="problem-item" onclick="openModal('port-blocking')" style="border-left-color: #96ceb4;">
                         <div class="problem-title">
                             Port Blocking Issues
                             <span class="problem-severity medium">MEDIUM</span>
                         </div>
-                        <p>Firewall belirli portları blokluyor</p>
+                        <p>Firewall is blocking specific ports</p>
+                    </div>
+                    <div class="problem-item" onclick="openModal('tcp-retransmission')" style="border-left-color: #96ceb4;">
+                        <div class="problem-title">
+                            TCP Retransmission Issue
+                            <span class="problem-severity CiscoPacket">CiscoPacket</span>
+                        </div>
+                        <p>Packet loss occurs due to high-priority traffic competing with large transfers.</p>
+                    </div>
+                    <div class="problem-item" onclick="openModal('port-filtering')" style="border-left-color: #96ceb4;">
+                        <div class="problem-title">
+                            Port Filtering
+                            <span class="problem-severity CiscoPacket">CiscoPacket</span>
+                        </div>
+                        <p>A firewall blocks Layer 4 traffic (e.g., TCP port 80) preventing access to services.</p>
                     </div>
                 </div>
             </div>
-
             <div class="layer-card layer-3" onclick="toggleLayer(3)">
                 <div class="layer-header">
                     <div class="layer-number">3</div>
                     <div class="layer-title">Network Layer</div>
                 </div>
-                <p>IP Routing, ICMP, OSPF, BGP sorunları</p>
+                <p>IP Routing, ICMP, OSPF, BGP issues</p>
                 <div class="problem-list" id="layer-3-problems">
                     <div class="problem-item" onclick="openModal('routing-loop')" style="border-left-color: #ffeaa7;">
                         <div class="problem-title">
                             Routing Loop
                             <span class="problem-severity high">HIGH</span>
                         </div>
-                        <p>Paketler routing loop'a takılıyor</p>
+                        <p>Packets are stuck in a routing loop</p>
                     </div>
                     <div class="problem-item" onclick="openModal('ip-conflict')" style="border-left-color: #ffeaa7;">
                         <div class="problem-title">
                             IP Address Conflict
                             <span class="problem-severity medium">MEDIUM</span>
                         </div>
-                        <p>Aynı IP adresi birden fazla cihazda kullanılıyor</p>
+                        <p>Same IP address is used by multiple devices</p>
+                    </div>
+                    <div class="problem-item" onclick="openModal('ssh-connection-fails')" style="border-left-color: #ffeaa7;">
+                        <div class="problem-title">
+                            SSH Connection Fails
+                            <span class="problem-severity medium">MEDIUM</span>
+                        </div>
+                        <p>SSH connection fails due to encryption algorithm mismatch</p>
+                    </div>
+                    <div class="problem-item" onclick="openModal('traffic-blocked')" style="border-left-color: #ffeaa7;">
+                        <div class="problem-title">
+                            Traffic Blocked 
+                            <span class="problem-severity CiscoPacket">CiscoPacket</span>
+                        </div>
+                        <p>Traffic blocked due to ACL misconfiguration</p>
+                    </div>
+                    <div class="problem-item" onclick="openModal('lack-of-static-route')" style="border-left-color: #ffeaa7;">
+                        <div class="problem-title">
+                            Lack of Static Route  
+                            <span class="problem-severity CiscoPacket">CiscoPacket</span>
+                        </div>
+                        <p>Static route missing on the router</p>
                     </div>
                 </div>
             </div>
@@ -450,21 +498,28 @@
                     <div class="layer-number">2</div>
                     <div class="layer-title">Data Link Layer</div>
                 </div>
-                <p>Switching, VLAN, STP, MAC sorunları</p>
+                <p>Switching, VLAN, STP, MAC issues</p>
                 <div class="problem-list" id="layer-2-problems">
                     <div class="problem-item" onclick="openModal('vlan-mismatch')" style="border-left-color: #fd79a8;">
                         <div class="problem-title">
                             VLAN Mismatch
                             <span class="problem-severity medium">MEDIUM</span>
                         </div>
-                        <p>VLAN konfigürasyonları uyumsuz</p>
+                        <p>Incompatible VLAN configurations</p>
                     </div>
                     <div class="problem-item" onclick="openModal('stp-convergence')" style="border-left-color: #fd79a8;">
                         <div class="problem-title">
                             STP Convergence Issues
                             <span class="problem-severity medium">MEDIUM</span>
                         </div>
-                        <p>Spanning Tree Protocol yavaş convergence</p>
+                        <p>Slow convergence of Spanning Tree Protocol</p>
+                    </div>
+                    <div class="problem-item" onclick="openModal('mac-flapping')" style="border-left-color: #fd79a8;">
+                        <div class="problem-title">
+                            MAC Flapping
+                            <span class="problem-severity CiscoPacket">CiscoPacket</span>
+                        </div>
+                        <p>Rapidly changing MAC entries in the switch MAC table</p>
                     </div>
                 </div>
             </div>
@@ -474,27 +529,40 @@
                     <div class="layer-number">1</div>
                     <div class="layer-title">Physical Layer</div>
                 </div>
-                <p>Kablo, Interface, Hardware sorunları</p>
+                <p>Cable, Interface, Hardware issues</p>
                 <div class="problem-list" id="layer-1-problems">
                     <div class="problem-item" onclick="openModal('cable-fault')" style="border-left-color: #a29bfe;">
                         <div class="problem-title">
                             Cable Fault
                             <span class="problem-severity high">HIGH</span>
                         </div>
-                        <p>Ağ kabloları hasarlı veya bağlantısız</p>
+                        <p>Network cables are damaged or disconnected</p>
                     </div>
                     <div class="problem-item" onclick="openModal('interface-error')" style="border-left-color: #a29bfe;">
                         <div class="problem-title">
                             Interface Error Rate
                             <span class="problem-severity medium">MEDIUM</span>
                         </div>
-                        <p>Network interface'lerinde yüksek hata oranı</p>
+                        <p>High error rate on network interfaces</p>
+                    </div>
+                    <div class="problem-item" onclick="openModal('cable-fault')" style="border-left-color: #a29bfe;">
+                        <div class="problem-title">
+                            Port Error
+                            <span class="problem-severity CiscoPacket">CiscoPacket</span>
+                        </div>
+                        <p>The switch port is in a shutdown state, causing loss of connectivity</p>
+                    </div>
+                    <div class="problem-item" onclick="openModal('incorrect-cable')" style="border-left-color: #a29bfe;">
+                        <div class="problem-title">
+                            Incorrect Cable Connection
+                            <span class="problem-severity CiscoPacket">CiscoPacket</span>
+                        </div>
+                        <p>PC is connected using the wrong port or the cable is not securely connected</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
     <!-- Modal -->
     <div id="problemModal" class="modal">
         <div class="modal-content">
@@ -511,657 +579,2327 @@
     <script>
         // Problem veritabanı
         const problems = {
-            'dns-resolution': {
-                title: 'DNS Resolution Failure',
-                layer: 'Layer 7 - Application',
-                severity: 'High',
-                description: 'DNS sunucuları yanıt vermiyor veya yanlış IP adresleri döndürüyor. Bu durum web sitelerine erişimi engelliyor.',
-                symptoms: [
-                    'Web siteleri yüklenmiyor',
-                    '"Server not found" hataları',
-                    'Ping domain name çalışmıyor ama IP ile çalışıyor',
-                    'DNS lookup süreleri çok uzun'
-                ],
-                causes: [
-                    'DNS sunucu arızası',
-                    'Yanlış DNS konfigürasyonu',
-                    'DNS cache corruption',
-                    'Firewall DNS trafiğini blokluyor'
-                ],
-                solution: `
-                    <div class="troubleshooting-steps">
-                        <h4>🔧 Troubleshooting Adımları:</h4>
-                        <div class="step">
-                            <div class="step-number">1</div>
-                            <div>
-                                <strong>DNS Connectivity Test:</strong>
-                                <div class="code-block">nslookup google.com
+'dns-resolution': {
+    title: 'DNS Resolution Failure',
+    layer: 'Layer 7 - Application',
+    severity: 'High',
+    description: 'DNS servers are either unresponsive or returning incorrect IP addresses. This prevents clients from accessing websites and services by domain name.',
+    symptoms: [
+        'Web pages fail to load or return a Server Not Found or DNS_PROBE_FINISHED_NXDOMAIN error.',
+        'ping www.example.com fails, but ping 8.8.8.8 (or another IP) succeeds.',
+        'Command-line tools like nslookup or dig show timeouts or errors.',
+        'Applications that rely on domain-based endpoints (email clients, software updates, VPNs) fail to connect.',
+        'Long delays before connection errors appear (DNS timeout).',
+    ],
+    causes: [
+        'Unreachable or down DNS servers',
+        'Incorrect DNS configuration on client or router',
+        'Corrupted local DNS cache',
+        'Firewall or security software blocking UDP/TCP port 53',
+        'ISP DNS filtering or hijacking',
+        'DNS-over-HTTPS or DNSSEC misconfigurations'
+    ],
+    solution: `
+        <div class="troubleshooting-steps">
+            <h4>🔧 Troubleshooting Steps:</h4>
+            <div class="step">
+                <div class="step-number">1</div>
+                <div>
+                    <strong>Check DNS Connectivity and Resolution:</strong>
+                    <div class="code-block">
+nslookup google.com
 ping 8.8.8.8
-nslookup google.com 8.8.8.8</div>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">2</div>
-                            <div>
-                                <strong>DNS Cache Temizleme:</strong>
-                                <div class="code-block">ipconfig /flushdns
-# Linux/Mac için
-sudo systemctl restart systemd-resolved</div>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">3</div>
-                            <div>
-                                <strong>DNS Server Değiştirme:</strong>
-                                <div class="code-block"># Cisco Router
+nslookup google.com 8.8.8.8
+dig google.com
+                    </div>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div>
+                    <strong>Flush DNS Cache:</strong>
+                    <div class="code-block">
+# Windows
+ipconfig /flushdns
+
+# Linux
+sudo systemd-resolve --flush-caches
+
+# macOS
+sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder
+                    </div>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div>
+                    <strong>Change to a Known-Good DNS Server:</strong>
+                    <div class="code-block">
+# Cisco Router
 ip name-server 8.8.8.8 8.8.4.4
 
-# Windows
-netsh interface ip set dns "Local Area Connection" static 8.8.8.8</div>
-                            </div>
-                        </div>
+# Windows Command
+netsh interface ip set dns "Local Area Connection" static 8.8.8.8
+
+# Linux (systemd-resolved)
+sudo nmcli dev show | grep DNS
+sudo nmcli con mod <your-connection> ipv4.dns "8.8.8.8 8.8.4.4" && sudo nmcli con up <your-connection>
                     </div>
-                `,
-                packetTracer: 'DNS_Resolution_Lab.pkt',
-                topology: 'PC → Switch → Router → DNS Server',
-                verification: `
-                    <div class="code-block">show ip dns view
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <div>
+                    <strong>Temporarily Disable Firewall/Antivirus:</strong>
+                    <p>Check if port 53 (UDP/TCP) is being blocked. Re-enable protections after testing.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">5</div>
+                <div>
+                    <strong>Test Secure DNS Settings:</strong>
+                    <p>If using DNS-over-HTTPS (DoH) or DNSSEC, ensure full compatibility across client and resolver. Disable if unsure.</p>
+                </div>
+            </div>
+        </div>
+    `,
+    packetTracer: 'DNS_Resolution_Lab.pkt',
+    topology: 'PC → Switch → Router → DNS Server',
+    verification: `
+        <div class="code-block">
+show ip dns view
 show hosts
 debug ip dns
-ping domain-name</div>
-                `
-            },
+ping google.com
+nslookup google.com
+        </div>
+    `
+},
             'web-service-timeout': {
-                title: 'Web Service Timeout',
-                layer: 'Layer 7 - Application',
-                severity: 'Medium',
-                description: 'HTTP/HTTPS bağlantıları zaman aşımına uğruyor, web servisleri yavaş yanıt veriyor.',
-                symptoms: [
-                    'Web sayfaları yavaş yükleniyor',
-                    'Connection timeout hataları',
-                    'HTTP 504 Gateway Timeout',
-                    'API istekleri başarısız oluyor'
-                ],
-                causes: [
-                    'Web server aşırı yüklü',
-                    'Network latency yüksek',
-                    'Proxy sunucu sorunları',
-                    'Bandwidth yetersizliği'
-                ],
-                solution: `
-                    <div class="troubleshooting-steps">
-                        <h4>🔧 Troubleshooting Adımları:</h4>
-                        <div class="step">
-                            <div class="step-number">1</div>
-                            <div>
-                                <strong>HTTP Response Time Test:</strong>
-                                <div class="code-block">curl -w "@curl-format.txt" -o /dev/null http://example.com
+    title: 'Web Service Timeout',
+    layer: 'Layer 7 - Application',
+    severity: 'Medium',
+    description: 'HTTP/HTTPS requests to a web server are failing due to timeout errors. This means the server is taking too long to respond, either because it is overloaded, unreachable, or slow due to network or backend delays.',
+    symptoms: [
+        'Web pages fail to load or partially load after a long delay.',
+        'Browser displays "504 Gateway Timeout" or "Connection Timed Out".',
+        'API calls (e.g., from frontend or mobile app) fail due to timeout.',
+        'Users report intermittent unresponsiveness or slowness.',
+        'Server logs show increased response times or no response.'
+    ],
+    causes: [
+        'Web server is under high CPU or memory load (e.g., due to too many requests).',
+        'Backend service (e.g., database or API) is not responding in time.',
+        'Network latency between client and server is unusually high.',
+        'Firewall or proxy server is interrupting the connection.',
+        'DNS resolution or TLS handshake delays.',
+        'Improper keep-alive or timeout configurations on server or reverse proxy.',
+        'DDoS attack or flood of malicious traffic overwhelming server resources.'
+    ],
+    solution: `
+        <div class="troubleshooting-steps">
+            <h4>🔧 Troubleshooting Steps:</h4>
+
+            <div class="step">
+                <div class="step-number">1</div>
+                <div>
+                    <strong>Confirm Timeout Behavior:</strong>
+                    <p>Use tools like <code>curl</code>, <code>Postman</code>, or <code>browser dev tools</code> to verify where the delay occurs.</p>
+                    <div class="code-block">
+curl -v https://example.com
+curl -m 10 https://example.com
+ping example.com
 traceroute example.com
-mtr example.com</div>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">2</div>
-                            <div>
-                                <strong>Bandwidth ve Latency Analizi:</strong>
-                                <div class="code-block">iperf3 -c server-ip
-ping -c 10 server-ip
-show interface statistics</div>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">3</div>
-                            <div>
-                                <strong>HTTP Timeout Ayarları:</strong>
-                                <div class="code-block"># Apache
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <div>
+                    <strong>Check Server Health and Load:</strong>
+                    <p>Ensure that the server has sufficient CPU, RAM, and disk I/O capacity. Review error logs.</p>
+                    <div class="code-block">
+top
+htop
+journalctl -xe
+tail -f /var/log/nginx/access.log
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <div>
+                    <strong>Validate Web Server Configuration:</strong>
+                    <p>Ensure timeouts are not too strict and that keep-alive is enabled properly.</p>
+                    <div class="code-block">
+# Apache
+Timeout 300
+KeepAlive On
+KeepAliveTimeout 5
+
+# Nginx
+proxy_connect_timeout 60s;
+proxy_read_timeout 300s;
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <div>
+                    <strong>Test Backend Dependencies:</strong>
+                    <p>If the web service relies on a database or external API, check their latency and availability.</p>
+                    <div class="code-block">
+mysqladmin -u root -p processlist
+psql -c 'SELECT now();'
+ping api.example.com
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">5</div>
+                <div>
+                    <strong>Measure Network Performance:</strong>
+                    <p>High packet loss or jitter may cause connection timeouts.</p>
+                    <div class="code-block">
+iperf3 -c server-ip
+mtr example.com
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">6</div>
+                <div>
+                    <strong>Monitor TLS and DNS Overhead:</strong>
+                    <p>Long TLS handshakes or slow DNS resolution can delay web connections.</p>
+                    <div class="code-block">
+openssl s_client -connect example.com:443
+dig example.com
+nslookup example.com
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">7</div>
+                <div>
+                    <strong>Load Balance and Scale:</strong>
+                    <p>If demand is high, consider scaling out with load balancing or CDN services.</p>
+                    <div class="code-block">
+# AWS Example
+Use Application Load Balancer + Auto Scaling Group
+Enable CloudFront caching
+                    </div>
+                </div>
+            </div>
+        </div>
+    `,
+    packetTracer: 'Web_Service_Timeout_Lab.pkt',
+    topology: 'Client → Router → Firewall/Proxy → Web Server',
+    verification: `
+        <div class="code-block">
+show ip http server status
+netstat -an | grep :80
+show tcp brief
+curl -I https://example.com
+ping example.com
+        </div>
+    `
+},
+'dhcp-not-responding': {
+    title: 'DHCP Server Not Responding',
+    layer: 'Layer 7 - Application',
+    severity: 'CiscoPacket',
+    description: 'The DHCP server is not replying to DHCP Discover messages, so the client cannot obtain an IP address.',
+    symptoms: [
+        'PC shows "No IP address" or "169.x.x.x"',
+        'Cannot ping default gateway',
+        'DHCP Discover seen in packet capture, but no DHCP Offer'
+    ],
+    causes: [
+        'DHCP server offline or misconfigured',
+        'Port to DHCP server is down',
+        'DHCP service not running',
+        'Incorrect VLAN or scope'
+    ],
+    solution: `
+        <div class="troubleshooting-steps">
+            <h4>🔧 Troubleshooting Steps:</h4>
+            <div class="step">
+                <div class="step-number">1</div>
+                <div>
+                    <strong>Check DHCP Server Status:</strong>
+                    <div class="code-block">show ip dhcp binding
+show ip dhcp pool
+show running-config | include dhcp</div>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div>
+                    <strong>Interface & VLAN Checks:</strong>
+                    <div class="code-block">show interfaces status
+show vlan brief
+show interfaces [interface-id] switchport</div>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div>
+                    <strong>DHCP Debugging:</strong>
+                    <div class="code-block">debug ip dhcp server events
+debug ip dhcp server packet</div>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <div>
+                    <strong>Router IP Helper (if cross-subnet):</strong>
+                    <div class="code-block">interface vlan 10
+ip helper-address 192.168.1.1</div>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">5</div>
+                <div>
+                    <strong>Client IP Renewal:</strong>
+                    <div class="code-block">ipconfig /release
+ipconfig /renew</div>
+                </div>
+            </div>
+        </div>
+    `,
+    packetTracer: '../CNProject/CNP/DHCPServerL7/DHCP Server Not Responding.pkt',
+    topology: 'PC → Switch → Router → DHCP Server',
+    verification: `
+        <div class="code-block">show ip interface brief
+ping 192.168.1.1
+ipconfig /renew (on PC)</div>
+    `
+},
+            
+'ssl-certificate': {
+    title: 'SSL Certificate Issues',
+    layer: 'Layer 6 - Presentation',
+    severity: 'High',
+    description: 'The SSL/TLS certificate used by the server is either expired, misconfigured, untrusted, or does not match the domain name. As a result, secure HTTPS connections fail or trigger security warnings in clients.',
+    symptoms: [
+        'Web browsers display “Your connection is not private” or similar security warnings.',
+        'SSL/TLS handshake failure messages in logs.',
+        'Curl and API requests fail with “certificate verify failed”.',
+        'Clients cannot establish secure connections (port 443).',
+        'Certificate-related errors in developer tools or network logs.'
+    ],
+    causes: [
+        'The certificate is expired or not yet valid.',
+        'The certificate is self-signed and not trusted by clients.',
+        'The certificate chain is incomplete or improperly configured.',
+        'The certificate was issued for a different hostname (FQDN mismatch).',
+        'The intermediate/root CA is missing or not installed on the client.',
+        'TLS version mismatch or deprecated cipher suites.'
+    ],
+    solution: `
+        <div class="troubleshooting-steps">
+            <h4>🔧 Troubleshooting Steps:</h4>
+
+            <div class="step">
+                <div class="step-number">1</div>
+                <div>
+                    <strong>Check SSL Certificate Details:</strong>
+                    <p>Verify the expiration date, subject, issuer, and trust chain of the certificate.</p>
+                    <div class="code-block">
+openssl s_client -connect example.com:443
+openssl x509 -in certificate.crt -text -noout
+curl -Iv https://example.com
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <div>
+                    <strong>Check Expiry and Validity Dates:</strong>
+                    <p>Ensure the certificate is not expired or outside its valid date range.</p>
+                    <div class="code-block">
+echo | openssl s_client -servername example.com -connect example.com:443 2>/dev/null | openssl x509 -noout -dates
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <div>
+                    <strong>Verify Certificate Chain:</strong>
+                    <p>Make sure intermediate and root certificates are correctly installed.</p>
+                    <div class="code-block">
+openssl verify -CAfile chain.pem certificate.pem
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <div>
+                    <strong>Ensure Hostname Matches:</strong>
+                    <p>Check that the Common Name (CN) or Subject Alternative Name (SAN) matches the domain.</p>
+                    <div class="code-block">
+openssl s_client -connect example.com:443 | openssl x509 -noout -subject -ext subjectAltName
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">5</div>
+                <div>
+                    <strong>Install Valid Certificate:</strong>
+                    <p>Obtain a valid certificate from a trusted CA (Let’s Encrypt, DigiCert, etc.) and configure your server:</p>
+                    <div class="code-block">
+# Nginx
+ssl_certificate /etc/ssl/certs/fullchain.pem;
+ssl_certificate_key /etc/ssl/private/privkey.pem;
+
+# Apache
+SSLEngine on
+SSLCertificateFile /etc/ssl/certs/cert.pem
+SSLCertificateKeyFile /etc/ssl/private/key.pem
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">6</div>
+                <div>
+                    <strong>Enable Secure Protocols:</strong>
+                    <p>Ensure supported TLS versions and secure cipher suites:</p>
+                    <div class="code-block">
+ssl_protocols TLSv1.2 TLSv1.3;
+ssl_ciphers 'HIGH:!aNULL:!MD5';
+                    </div>
+                </div>
+            </div>
+        </div>
+    `,
+    packetTracer: 'SSL_Certificate_Lab.pkt',
+    topology: 'Client → Router → Firewall → HTTPS Server',
+    verification: `
+        <div class="code-block">
+# Check Certificate Installation
+openssl s_client -connect example.com:443
+
+# Inspect SSL State on Server
+show crypto ca certificates
+show ssl stats
+debug ssl openssl errors
+
+# Client-Side Test
+curl -Iv https://example.com
+        </div>
+    `
+},
+'ssh-encryption-mismatch': {
+    title: 'SSH Encryption Mismatch',
+    layer: 'Layer 6 - Presentation',
+    severity: 'CiscoPacket',
+    description: 'SSH connection fails due to mismatched encryption algorithms between client and server.',
+    symptoms: [
+        'SSH client times out or disconnects',
+        'Log shows "key exchange failed"',
+        'Unable to negotiate encryption method',
+        'Debug output shows: "no matching cipher found"',
+        'Connection abruptly closes after handshake start'
+    ],
+    causes: [
+        'Client supports only deprecated ciphers',
+        'Server disabled required encryption suite',
+        'Algorithm mismatch in SSH config',
+        'OpenSSH update removed old algorithms',
+        'Firewall or security appliance filtering encryption traffic'
+    ],
+    solution: `
+        <div class="troubleshooting-steps">
+            <h4>🔧 Troubleshooting Steps:</h4>
+
+            <div class="step">
+                <div class="step-number">1</div>
+                <div>
+                    <strong>Check Supported Algorithms on Client:</strong>
+                    <div class="code-block">ssh -Q cipher
+ssh -Q kex
+ssh -Q mac
+ssh -vvv user@host</div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <div>
+                    <strong>Review and Update SSH Server Configuration:</strong>
+                    <div class="code-block">sudo nano /etc/ssh/sshd_config</div>
+                    <p>Add or update:</p>
+                    <div class="code-block">Ciphers aes256-ctr,aes192-ctr,aes128-ctr
+KexAlgorithms diffie-hellman-group-exchange-sha256
+MACs hmac-sha2-256,hmac-sha2-512</div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <div>
+                    <strong>Restart SSH Service:</strong>
+                    <div class="code-block">sudo systemctl restart sshd</div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <div>
+                    <strong>Try Client-Side Forced Algorithm Connection:</strong>
+                    <div class="code-block">ssh -oKexAlgorithms=+diffie-hellman-group1-sha1 -oCiphers=aes128-ctr user@host</div>
+                </div>
+            </div>
+        </div>
+    `,
+    packetTracer: '../CNProject/CNP/SSHConnectionL6/SSH Connection Fails Due to Encryption Mismatch.pkt',
+    topology: 'Client → Switch → Router → SSH Server',
+    image: 'images/ssh-topology.png',
+    verification: `
+        <div class="code-block">show ssh
+debug ssh
+ssh -vvv user@router-ip</div>
+    `
+},
+'session-timeout': {
+    title: 'Session Timeout Problems',
+    layer: 'Layer 5 - Session',
+    severity: 'Medium',
+    description: 'Session layer manages the setup, coordination, and termination of connections. When session timeout problems occur, ongoing user connections are abruptly terminated due to inactivity thresholds, application misconfigurations, NAT aging policies, or resource exhaustion.',
+    symptoms: [
+        'Users are logged out automatically after short inactivity periods',
+        'Active SSH/HTTPS sessions disconnect without warning',
+        'Frequent “session expired” or “re-login required” messages',
+        'Lost session state in web applications (cart emptied, form reset, etc.)',
+        'VPN tunnels drop prematurely',
+        'Interactive apps behave inconsistently across users or time'
+    ],
+    causes: [
+        'Overly aggressive timeout values configured on the server or firewall',
+        'NAT table expiration due to inactivity or long-lived idle sessions',
+        'Session tracking disabled or broken in the application layer',
+        'Session ID lost due to load balancer misrouting (missing session persistence/sticky session)',
+        'Browser cookie expiration or blocking',
+        'Session table overflow on stateful devices (firewall, proxy, etc.)',
+        'Insufficient keep-alive mechanisms (e.g., TCP keepalives not configured)'
+    ],
+    solution: `
+        <div class="troubleshooting-steps">
+            <h4>🔧 Troubleshooting Steps:</h4>
+
+            <div class="step">
+                <div class="step-number">1</div>
+                <div>
+                    <strong>Check Application or Web Server Timeout Settings:</strong>
+                    <p>Each layer in the request path (web server, app server, auth system) may define its own timeout. Misalignment causes session loss.</p>
+                    <div class="code-block">
+# Apache
 Timeout 300
 KeepAliveTimeout 5
 
 # Nginx
 proxy_connect_timeout 60s;
-proxy_read_timeout 300s;</div>
-                            </div>
-                        </div>
+proxy_read_timeout 300s;
+
+# Node.js express-session example
+resave: true,
+rolling: true,
+cookie: { maxAge: 1800000 }  // 30 minutes
                     </div>
-                `,
-                packetTracer: 'Web_Service_Timeout_Lab.pkt',
-                topology: 'Client → Router → Internet → Web Server',
-                verification: `
-                    <div class="code-block">show tcp brief
-show ip http server status
-debug ip http all</div>
-                `
-            },
-            'ssl-certificate': {
-                title: 'SSL Certificate Issues',
-                layer: 'Layer 6 - Presentation',
-                severity: 'High',
-                description: 'SSL sertifikaları süresi dolmuş, güvenilir değil veya yanlış yapılandırılmış.',
-                symptoms: [
-                    'Browser güvenlik uyarıları',
-                    'SSL handshake failure',
-                    'Certificate expired hataları',
-                    'HTTPS bağlantıları başarısız'
-                ],
-                causes: [
-                    'Sertifika süresi dolmuş',
-                    'Self-signed certificate',
-                    'Wrong certificate chain',
-                    'Certificate name mismatch'
-                ],
-                solution: `
-                    <div class="troubleshooting-steps">
-                        <h4>🔧 Troubleshooting Adımları:</h4>
-                        <div class="step">
-                            <div class="step-number">1</div>
-                            <div>
-                                <strong>SSL Certificate Kontrolü:</strong>
-                                <div class="code-block">openssl s_client -connect example.com:443
-openssl x509 -in certificate.crt -text -noout
-curl -vI https://example.com</div>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">2</div>
-                            <div>
-                                <strong>Certificate Validity Check:</strong>
-                                <div class="code-block">echo | openssl s_client -servername example.com -connect example.com:443 2>/dev/null | openssl x509 -noout -dates</div>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">3</div>
-                            <div>
-                                <strong>Certificate Installation:</strong>
-                                <div class="code-block"># Cisco ASA
-crypto ca trustpoint CA_NAME
-enrollment terminal
-crypto ca authenticate CA_NAME
-crypto ca enroll CA_NAME</div>
-                            </div>
-                        </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <div>
+                    <strong>Check NAT & Firewall Timeout Rules:</strong>
+                    <p>Middleboxes that track session state (like NAT, firewall) may close sessions early if idle timeout values are low:</p>
+                    <div class="code-block">
+# Cisco ASA
+show conn
+timeout conn 0:30:00
+timeout xlate 1:00:00
+
+# pfSense / FortiGate
+State Timeout: 900 sec
                     </div>
-                `,
-                packetTracer: 'SSL_Certificate_Lab.pkt',
-                topology: 'Client → Router → ASA Firewall → HTTPS Server',
-                verification: `
-                    <div class="code-block">show crypto ca certificates
-show ssl stats
-debug ssl openssl errors</div>
-                `
-            },
-            'session-timeout': {
-                title: 'Session Timeout Problems',
-                layer: 'Layer 5 - Session',
-                severity: 'Medium',
-                description: 'Kullanıcı oturumları beklenmedik şekilde sonlanıyor veya session yönetimi düzgün çalışmıyor.',
-                symptoms: [
-                    'Frequent login prompts',
-                    'Session data loss',
-                    'Unexpected logouts',
-                    'Connection drops'
-                ],
-                causes: [
-                    'Aggressive timeout settings',
-                    'Session table overflow',
-                    'Memory limitations',
-                    'Application bugs'
-                ],
-                solution: `
-                    <div class="troubleshooting-steps">
-                        <h4>🔧 Troubleshooting Adımları:</h4>
-                        <div class="step">
-                            <div class="step-number">1</div>
-                            <div>
-                                <strong>Session Table Analysis:</strong>
-                                <div class="code-block">show tcp brief all
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <div>
+                    <strong>Inspect Client-Side Session Storage:</strong>
+                    <p>Session data may be lost if browser cookies expire, are blocked, or not sent with cross-origin requests:</p>
+                    <div class="code-block">
+// JavaScript
+document.cookie
+sessionStorage.getItem('session_id')
+                    </div>
+                    <p>Also check browser extensions that may block or delete session cookies.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <div>
+                    <strong>Implement Heartbeats / Keep-Alives:</strong>
+                    <p>Use background AJAX pings or TCP keepalives to prevent idle detection:</p>
+                    <div class="code-block">
+// Web app (AJAX example)
+setInterval(() => fetch('/keepalive'), 300000); // 5 min
+
+# SSH client config
+ClientAliveInterval 120
+ClientAliveCountMax 3
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">5</div>
+                <div>
+                    <strong>Verify Load Balancer Session Persistence:</strong>
+                    <p>Ensure sticky sessions are configured if your app spans multiple backend nodes:</p>
+                    <div class="code-block">
+# F5 / HAProxy
+stick-table type ip size 200k expire 30m
+stick on src
+
+# AWS ELB
+Enable stickiness with duration 3600s
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">6</div>
+                <div>
+                    <strong>Review Resource Usage / Logs:</strong>
+                    <p>Sessions may expire prematurely if memory, threads, or file descriptors are depleted:</p>
+                    <div class="code-block">
+ulimit -a
+dmesg | grep session
+show memory
+netstat -an | grep ESTABLISHED | wc -l
+                    </div>
+                </div>
+            </div>
+        </div>
+    `,
+    packetTracer: '../CNProject/CNP/SessionTimeoutL5/Session Timeout - SSH Connection Keeps Disconnecting.pkt',
+    topology: 'Client → ASA Firewall → Web Server or SSH Server',
+    image: 'images/session-topology.png',
+    verification: `
+        <div class="code-block">
+# Application/server logs:
+tail -f /var/log/auth.log
+journalctl -u nginx
+
+# Firewall
 show conn detail
-show xlate</div>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">2</div>
-                            <div>
-                                <strong>Timeout Configuration:</strong>
-                                <div class="code-block"># Cisco ASA
-timeout conn 1:00:00
-timeout xlate 3:00:00
-timeout tcp-proxy-reassembly 0:01:00</div>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">3</div>
-                            <div>
-                                <strong>Session Monitoring:</strong>
-                                <div class="code-block">show memory
-show resource usage
-debug tcp events</div>
-                            </div>
-                        </div>
-                    </div>
-                `,
-                packetTracer: 'Session_Timeout_Lab.pkt',
-                topology: 'Client → ASA → Internal Server',
-                verification: `
-                    <div class="code-block">show conn count
-show memory pools
-show tcp statistics</div>
-                `
+show memory
+
+# Client-side
+ssh -vvv user@host
+developer tools > network > keep-alive headers
+        </div>
+    `
+
+
             },
-            'tcp-connection': {
-                title: 'TCP Connection Reset',
-                layer: 'Layer 4 - Transport',
-                severity: 'High',
-                description: 'TCP bağlantıları sürekli resetleniyor, connection established olamıyor.',
-                symptoms: [
-                    'Connection reset by peer',
-                    'TCP handshake failure',
-                    'Intermittent connectivity',
-                    'High retransmission rates'
-                ],
-                causes: [
-                    'Firewall dropping connections',
-                    'TCP sequence number issues',
-                    'Network congestion',
-                    'Server overload'
-                ],
-                solution: `
-                    <div class="troubleshooting-steps">
-                        <h4>🔧 Troubleshooting Adımları:</h4>
-                        <div class="step">
-                            <div class="step-number">1</div>
-                            <div>
-                                <strong>TCP Connection Analysis:</strong>
-                                <div class="code-block">netstat -an | grep SYN
-ss -tuln
-tcpdump -i any tcp[tcpflags] & tcp-rst != 0</div>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">2</div>
-                            <div>
-                                <strong>Firewall State Table Check:</strong>
-                                <div class="code-block"># Cisco ASA
-show conn detail
-clear conn all
-show tcp brief</div>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">3</div>
-                            <div>
-                                <strong>TCP Parameters Tuning:</strong>
-                                <div class="code-block"># Linux
-echo 'net.ipv4.tcp_keepalive_time = 600' >> /etc/sysctl.conf
-echo 'net.ipv4.tcp_keepalive_probes = 3' >> /etc/sysctl.conf
-sysctl -p</div>
-                            </div>
-                        </div>
+ 'tcp-connection': {
+    title: 'TCP Connection Reset',
+    layer: 'Layer 4 - Transport',
+    severity: 'High',
+    description: 'TCP connections are prematurely terminated after the handshake begins. This occurs when one side of the communication (typically the server) sends a TCP RST (reset) packet, immediately ending the session. It can be triggered by firewall rules, application crashes, sequence number mismatches, or overload conditions.',
+    symptoms: [
+        'Applications report "Connection reset by peer" or "ECONNRESET".',
+        'Wireshark or tcpdump shows TCP RST packets after SYN or SYN-ACK.',
+        'Web requests or API calls fail immediately or intermittently.',
+        'SSH, FTP, or HTTP connections close right after opening.',
+        'No response or unexpected closure from the server side.'
+    ],
+    causes: [
+        'Firewall or security appliance drops or resets connections based on rule violations.',
+        'Server application crashes or intentionally closes the connection.',
+        'TCP sequence number mismatch due to spoofing or packet reordering.',
+        'Too many open connections or low system resources on server.',
+        'Incorrect TCP keepalive or idle timeout configuration.',
+        'Intermediate device (proxy, NAT, load balancer) resetting idle or invalid sessions.'
+    ],
+    solution: `
+        <div class="troubleshooting-steps">
+            <h4>🔧 Troubleshooting Steps:</h4>
+
+            <div class="step">
+                <div class="step-number">1</div>
+                <div>
+                    <strong>Capture TCP Traffic for Reset Packets:</strong>
+                    <p>Use packet analysis tools to identify the source and pattern of the RST signals.</p>
+                    <div class="code-block">
+tcpdump -i any 'tcp[tcpflags] & tcp-rst != 0'
+wireshark → Follow TCP Stream → Look for [RST]
                     </div>
-                `,
-                packetTracer: 'TCP_Connection_Reset_Lab.pkt',
-                topology: 'Client → Router → Firewall → Server',
-                verification: `
-                    <div class="code-block">show ip tcp header-compression
-show tcp statistics
-debug ip tcp events</div>
-                `
-            },
-            'port-blocking': {
-                title: 'Port Blocking Issues',
-                layer: 'Layer 4 - Transport',
-                severity: 'Medium',
-                description: 'Firewall veya ACL belirli portları blokluyor, servisler erişilemez durumda.',
-                symptoms: [
-                    'Connection refused errors',
-                    'Services unreachable',
-                    'Port scan shows closed',
-                    'Telnet to port fails'
-                ],
-                causes: [
-                    'Firewall rules blocking ports',
-                    'ACL misconfiguration',
-                    'NAT issues',
-                    'Security group restrictions'
-                ],
-                solution: `
-                    <div class="troubleshooting-steps">
-                        <h4>🔧 Troubleshooting Adımları:</h4>
-                        <div class="step">
-                            <div class="step-number">1</div>
-                            <div>
-                                <strong>Port Connectivity Test:</strong>
-                                <div class="code-block">telnet server-ip port-number
-nmap -p port-number server-ip
-nc -zv server-ip port-number</div>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">2</div>
-                            <div>
-                                <strong>Firewall Rules Check:</strong>
-                                <div class="code-block"># Cisco ASA
-show access-list
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <div>
+                    <strong>Check Server Application Logs:</strong>
+                    <p>Inspect if the server application is rejecting connections or crashing.</p>
+                    <div class="code-block">
+tail -f /var/log/nginx/error.log
+journalctl -u apache2
+netstat -anp | grep :443
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <div>
+                    <strong>Inspect Firewall and ACL Rules:</strong>
+                    <p>Ensure connections are not being dropped due to security policies or state mismatch.</p>
+                    <div class="code-block">
+# Cisco ASA
+show conn
 show run access-group
-packet-tracer input interface tcp source dest port</div>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">3</div>
-                            <div>
-                                <strong>Port Opening Configuration:</strong>
-                                <div class="code-block"># Cisco Router ACL
-access-list 100 permit tcp any host server-ip eq port-number
-interface gi0/0
-ip access-group 100 in</div>
-                            </div>
-                        </div>
+show access-lists
+
+# Linux
+sudo iptables -L -v
+sudo ufw status verbose
                     </div>
-                `,
-                packetTracer: 'Port_Blocking_Lab.pkt',
-                topology: 'Client → Router → ACL → Server',
-                verification: `
-                    <div class="code-block">show access-lists
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <div>
+                    <strong>Analyze TCP Stack Behavior:</strong>
+                    <p>Check kernel-level TCP settings that affect timeouts or resets.</p>
+                    <div class="code-block">
+sysctl net.ipv4.tcp_keepalive_time
+sysctl net.ipv4.tcp_fin_timeout
+cat /proc/sys/net/ipv4/tcp_max_syn_backlog
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">5</div>
+                <div>
+                    <strong>Monitor Server Load and Connection Limits:</strong>
+                    <p>Ensure the server is not overwhelmed and dropping connections.</p>
+                    <div class="code-block">
+ulimit -n
+ss -s
+lsof -iTCP -sTCP:LISTEN
+top | head -20
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">6</div>
+                <div>
+                    <strong>Test with Different Client and Network Path:</strong>
+                    <p>Determine if the issue is network-path related (e.g., NAT, DPI, proxy) or client-specific.</p>
+                    <div class="code-block">
+curl -v https://example.com
+telnet example.com 443
+openssl s_client -connect example.com:443
+traceroute example.com
+                    </div>
+                </div>
+            </div>
+        </div>
+    `,
+    packetTracer: 'TCP_Connection_Reset_Lab.pkt',
+    topology: 'Client → Router → Firewall → Server',
+    verification: `
+        <div class="code-block">
+# Cisco Devices
+show ip tcp statistics
+debug ip tcp transactions
+show conn detail
+
+# Linux
+ss -tnp
+tcpdump -i eth0 'tcp[tcpflags] & tcp-rst != 0'
+
+# Client-Side
+curl -v https://example.com
+wireshark capture → RST analysis
+        </div>
+    `
+},
+'port-blocking': {
+    title: 'Port Blocking Issues',
+    layer: 'Layer 4 - Transport',
+    severity: 'Medium',
+    description: 'Port blocking occurs when network security policies, firewalls, or access control lists (ACLs) prevent traffic from reaching specific TCP or UDP ports. This disrupts communication with essential services such as HTTP (80), HTTPS (443), SSH (22), or custom application ports.',
+    symptoms: [
+        'Clients receive "Connection refused" or "Connection timed out" errors.',
+        'Telnet, netcat, or curl commands to specific ports fail.',
+        'Services are up and reachable from inside the network, but not from external clients.',
+        'Nmap shows ports as "filtered" or "closed".',
+        'Traffic is silently dropped—no ICMP or TCP RST responses.'
+    ],
+    causes: [
+        'Firewall rules explicitly deny incoming or outgoing connections on certain ports.',
+        'Access Control Lists (ACLs) misconfigured on routers/switches.',
+        'Cloud-based security groups or network ACLs (e.g., AWS, Azure) restrict access.',
+        'NAT device does not forward packets to internal host.',
+        'Host-based firewall (iptables, UFW, Windows Firewall) is blocking the port.',
+        'ISP port filtering or upstream blacklisting.'
+    ],
+    solution: `
+        <div class="troubleshooting-steps">
+            <h4>🔧 Troubleshooting Steps:</h4>
+
+            <div class="step">
+                <div class="step-number">1</div>
+                <div>
+                    <strong>Test Port Accessibility from the Client:</strong>
+                    <p>Use networking tools to check if the port is reachable.</p>
+                    <div class="code-block">
+telnet server-ip 80
+nc -zv server-ip 22
+curl -v telnet://server-ip:21
+nmap -p 21,22,80,443 server-ip
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <div>
+                    <strong>Check Host-Based Firewalls:</strong>
+                    <p>Ensure the server is listening on the port and no local firewall is blocking it.</p>
+                    <div class="code-block">
+# Linux
+sudo iptables -L -n -v
+sudo ufw status
+sudo firewall-cmd --list-ports
+
+# Windows
+netsh advfirewall firewall show rule name=all
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <div>
+                    <strong>Verify Server Port Binding:</strong>
+                    <p>Check if the application/service is listening on the desired port.</p>
+                    <div class="code-block">
+netstat -tulnp | grep :443
+ss -lnpt | grep :22
+lsof -i :80
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <div>
+                    <strong>Inspect Network-Level ACLs and Firewall Rules:</strong>
+                    <p>Check Cisco or Layer 3 firewall configurations.</p>
+                    <div class="code-block">
+# Cisco
+show access-lists
+show run | include access-group
 show ip access-lists
-debug ip packet detail</div>
-                `
-            },
-            'routing-loop': {
-                title: 'Routing Loop',
-                layer: 'Layer 3 - Network',
-                severity: 'High',
-                description: 'Paketler routing loop\'a takılıyor, TTL değeri sıfıra iniyor.',
-                symptoms: [
-                    'High CPU on routers',
-                    'TTL exceeded messages',
-                    'Slow network performance',
-                    'Traceroute shows loops'
-                ],
-                causes: [
-                    'Incorrect static routes',
-                    'Routing protocol misconfiguration',
-                    'Split horizon disabled',
-                    'Metric issues'
-                ],
-                solution: `
-                    <div class="troubleshooting-steps">
-                        <h4>🔧 Troubleshooting Adımları:</h4>
-                        <div class="step">
-                            <div class="step-number">1</div>
-                            <div>
-                                <strong>Loop Detection:</strong>
-                                <div class="code-block">traceroute destination-ip
-show ip route
-show ip protocols</div>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">2</div>
-                            <div>
-                                <strong>Routing Table Analysis:</strong>
-                                <div class="code-block">show ip route summary
-show ip route longer-prefixes
-debug ip routing</div>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">3</div>
-                            <div>
-                                <strong>Loop Prevention:</strong>
-                                <div class="code-block"># OSPF Configuration
-router ospf 1
-area 0 authentication message-digest
-maximum-paths 1
-distance ospf intra-area 110</div>
-                            </div>
-                        </div>
+packet-tracer input inside tcp client-ip client-port server-ip 443
                     </div>
-                `,
-                packetTracer: 'Routing_Loop_Lab.pkt',
-                topology: 'Router A ↔ Router B ↔ Router C ↔ Router A',
-                verification: `
-                    <div class="code-block">show ip ospf neighbor
-show ip route ospf
-ping with record route</div>
-                `
-            },
-            'ip-conflict': {
-                title: 'IP Address Conflict',
-                layer: 'Layer 3 - Network',
-                severity: 'Medium',
-                description: 'Aynı IP adresi birden fazla cihazda kullanılıyor, network connectivity sorunları yaşanıyor.',
-                symptoms: [
-                    'Duplicate IP warnings',
-                    'Intermittent connectivity',
-                    'ARP table corruption',
-                    'Network instability'
-                ],
-                causes: [
-                    'Static IP overlap with DHCP',
-                    'Manual IP assignment errors',
-                    'DHCP scope issues',
-                    'Network misconfiguration'
-                ],
-                solution: `
-                    <div class="troubleshooting-steps">
-                        <h4>🔧 Troubleshooting Adımları:</h4>
-                        <div class="step">
-                            <div class="step-number">1</div>
-                            <div>
-                                <strong>IP Conflict Detection:</strong>
-                                <div class="code-block">arp -a
-ping -c 1 suspect-ip
-nmap -sn network/24</div>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">2</div>
-                            <div>
-                                <strong>DHCP Pool Check:</strong>
-                                <div class="code-block">show ip dhcp binding
-show ip dhcp pool
-show ip dhcp conflict</div>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">3</div>
-                            <div>
-                                <strong>Conflict Resolution:</strong>
-                                <div class="code-block"># DHCP Exclusion
-ip dhcp excluded-address 192.168.1.1 192.168.1.10
-clear ip dhcp conflict *
-clear arp-cache</div>
-                            </div>
-                        </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">5</div>
+                <div>
+                    <strong>Test NAT and Port Forwarding (if applicable):</strong>
+                    <p>Confirm external port traffic is routed to the correct internal IP.</p>
+                    <div class="code-block">
+# Cisco NAT Example
+show ip nat translations
+ip nat inside source static tcp 192.168.1.10 443 interface gi0/1 443
+
+# Linux iptables
+iptables -t nat -L -n -v
                     </div>
-                `,
-                packetTracer: 'IP_Conflict_Lab.pkt',
-                topology: 'DHCP Server → Switch → Multiple PCs',
-                verification: `
-                    <div class="code-block">show ip dhcp binding all
-show arp
-ping sweep network</div>
-                `
-            },
-            'vlan-mismatch': {
-                title: 'VLAN Mismatch',
-                layer: 'Layer 2 - Data Link',
-                severity: 'Medium',
-                description: 'VLAN konfigürasyonları uyumsuz, inter-VLAN communication sorunları.',
-                symptoms: [
-                    'No connectivity between VLANs',
-                    'Trunk port issues',
-                    'VLAN not propagating',
-                    'Access port problems'
-                ],
-                causes: [
-                    'VLAN ID mismatch',
-                    'Trunk configuration errors',
-                    'Native VLAN mismatch',
-                    'VTP domain issues'
-                ],
-                solution: `
-                    <div class="troubleshooting-steps">
-                        <h4>🔧 Troubleshooting Adımları:</h4>
-                        <div class="step">
-                            <div class="step-number">1</div>
-                            <div>
-                                <strong>VLAN Status Check:</strong>
-                                <div class="code-block">show vlan brief
-show interfaces trunk
-show vtp status</div>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">2</div>
-                            <div>
-                                <strong>Port Assignment Verification:</strong>
-                                <div class="code-block">show interfaces switchport
-show mac address-table vlan vlan-id
-show spanning-tree vlan vlan-id</div>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">3</div>
-                            <div>
-                                <strong>VLAN Configuration Fix:</strong>
-                                <div class="code-block">vlan 10
-name Sales
-exit
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">6</div>
+                <div>
+                    <strong>Modify or Add Required Permit Rules:</strong>
+                    <p>Ensure the access policy explicitly allows desired ports.</p>
+                    <div class="code-block">
+# Cisco Example
+access-list 101 permit tcp any host 192.168.1.10 eq 443
 interface gi0/1
-switchport mode access
-switchport access vlan 10</div>
-                            </div>
-                        </div>
+ip access-group 101 in
                     </div>
-                `,
-                packetTracer: 'VLAN_Mismatch_Lab.pkt',
-                topology: 'PC1 (VLAN10) → Switch → Router → Switch → PC2 (VLAN20)',
-                verification: `
-                    <div class="code-block">show vlan id 10
-show interfaces gi0/1 switchport
-ping across VLANs</div>
-                `
-            },
-            'stp-convergence': {
-                title: 'STP Convergence Issues',
-                layer: 'Layer 2 - Data Link',
-                severity: 'Medium',
-                description: 'Spanning Tree Protocol yavaş convergence, loop prevention sorunları.',
-                symptoms: [
-                    'Slow network convergence',
-                    'Temporary connectivity loss',
-                    'Port state flapping',
-                    'Bridge loops'
-                ],
-                causes: [
-                    'Suboptimal STP configuration',
-                    'Priority issues',
-                    'PortFast not enabled',
-                    'BPDU guard problems'
-                ],
-                solution: `
-                    <div class="troubleshooting-steps">
-                        <h4>🔧 Troubleshooting Adımları:</h4>
-                        <div class="step">
-                            <div class="step-number">1</div>
-                            <div>
-                                <strong>STP Status Analysis:</strong>
-                                <div class="code-block">show spanning-tree
+                </div>
+            </div>
+        </div>
+    `,
+    packetTracer: 'Port_Blocking_Lab.pkt',
+    topology: 'Client → Router → ACL/Firewall → Server',
+    verification: `
+        <div class="code-block">
+# Network Device
+show access-lists
+show ip access-lists
+show run | include access-group
+
+# Server Side
+netstat -tuln
+ss -plnt
+
+# Client Side
+nc -zv server-ip 80
+nmap -p 80 server-ip
+        </div>
+    `
+},
+            'tcp-retransmission': {
+    title: 'TCP Retransmission Issue',
+    layer: 'Layer 4 - Transport',
+    severity: 'CiscoPacket',
+    description: 'TCP retransmission occurs when the sender does not receive an ACK for a packet within a timeout window. This typically points to network congestion, packet drops, or device buffering issues.',
+    symptoms: [
+        'High latency in application performance (HTTP, FTP, SSH, etc.)',
+        'Unstable or intermittent connectivity',
+        'Increased TCP retransmissions in Wireshark or packet captures',
+        '“Retransmission timeout” or “Duplicate ACK” patterns in TCP stream',
+        'Frequent session drops under high traffic'
+    ],
+    causes: [
+        'Network congestion causing buffer overflow in switches or routers',
+        'Packet drops due to physical layer errors (CRC failures, duplex mismatch)',
+        'QoS misconfiguration or bandwidth saturation',
+        'Firewall/IPS devices dropping packets after state table overflow',
+        'Incorrect TCP window scaling or MTU mismatch',
+        'High CPU utilization on router/firewall affecting packet processing'
+    ],
+    solution: `
+        <div class="troubleshooting-steps">
+            <h4>🔧 Troubleshooting Steps:</h4>
+
+            <div class="step">
+                <div class="step-number">1</div>
+                <div>
+                    <strong>Capture and Analyze TCP Stream:</strong>
+                    <p>Use Wireshark or tcpdump to identify where retransmissions occur:</p>
+                    <div class="code-block">
+tcpdump -i eth0 port 80 -vvv
+wireshark → Analyze TCP Stream → Follow TCP Stream
+Statistics → TCP Stream Graph → Time/Sequence Graph
+                    </div>
+                    <p>Look for repeated sequence numbers and high RTT values.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <div>
+                    <strong>Check Interface Errors & Congestion:</strong>
+                    <p>Analyze whether drops occur at router or switch level:</p>
+                    <div class="code-block">
+show interfaces
+show interfaces counters errors
+show interfaces queue
+                    </div>
+                    <p>Look for: CRC errors, input drops, output drops, buffer overruns.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <div>
+                    <strong>Investigate QoS, Bandwidth, and Queueing:</strong>
+                    <p>Confirm QoS or traffic shaping is not throttling important traffic:</p>
+                    <div class="code-block">
+show policy-map interface
+show queuing interface gi0/1
+                    </div>
+                    <p>In congested links, TCP packets may be dropped or delayed, triggering retransmissions.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <div>
+                    <strong>Validate MTU and TCP Window Scaling:</strong>
+                    <p>Improper MTU leads to fragmentation; incorrect window scaling causes ACK delays:</p>
+                    <div class="code-block">
+ping -M do -s 1472 host
+sysctl net.ipv4.tcp_window_scaling
+                    </div>
+                    <p>Match MTU between client and server. Avoid fragmentation-induced retransmissions.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">5</div>
+                <div>
+                    <strong>Monitor Router or Firewall CPU Load:</strong>
+                    <p>High CPU or overloaded security devices can drop or delay packets silently:</p>
+                    <div class="code-block">
+show processes cpu sorted
+show platform hardware qos active
+show tcp brief all
+                    </div>
+                </div>
+            </div>
+        </div>
+    `,
+    packetTracer: '../CNProject/CNP/TCPRetransmissionL4/TCP Retransmission Issue.pkt',
+    topology: 'Client → Switch → Router → Server (High Load)',
+    image: 'images/Ekran görüntüsü 2025-06-22 170841.png',
+    verification: `
+        <div class="code-block">
+show tcp statistics
+show interface gi0/1
+debug ip tcp packet
+wireshark: Statistics → TCP → Graphs → Retransmissions
+        </div>
+    `
+},
+'port-filtering': {
+    title: 'Port Filtering (Firewall/ACL Deny)',
+    layer: 'Layer 4 - Transport',
+    severity: 'CiscoPacket',
+    description: 'Port filtering refers to the deliberate blocking of traffic to or from specific TCP or UDP ports by security policies. It is typically enforced by firewalls, ACLs, or security groups, and it prevents communication with targeted services.',
+    symptoms: [
+        'Clients cannot connect to a specific service (e.g., web server, SSH, FTP)',
+        'Telnet or nc to the port fails with “Connection refused” or “Timeout”',
+        'Nmap shows port status as “filtered” or “closed”',
+        'Service is running and reachable from other networks',
+        'No log entries or packet response from target host (silent drop)'
+    ],
+    causes: [
+        'Firewall rule explicitly denies inbound or outbound traffic to port',
+        'ACL configuration on router or switch restricts specific port access',
+        'Server firewall (iptables, ufw, firewalld) blocks incoming port',
+        'Cloud provider security group or NACL denies the connection',
+        'Port forwarding not configured correctly on NAT device'
+    ],
+    solution: `
+        <div class="troubleshooting-steps">
+            <h4>🔧 Troubleshooting Steps:</h4>
+
+            <div class="step">
+                <div class="step-number">1</div>
+                <div>
+                    <strong>Test Port Accessibility from Client:</strong>
+                    <p>Use tools to check if the port is open or blocked from source host:</p>
+                    <div class="code-block">
+telnet server-ip 22
+nc -zv server-ip 22
+nmap -p 22 server-ip
+                    </div>
+                    <p>If the result is “filtered” or “timeout”, filtering is likely present.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <div>
+                    <strong>Inspect Firewall or ACL Rules on Network Devices:</strong>
+                    <p>Check Cisco router/firewall configuration:</p>
+                    <div class="code-block">
+show access-lists
+show run | include access-group
+packet-tracer input inside tcp client-ip client-port server-ip 22
+                    </div>
+                    <p>Look for explicit deny entries or missing permit statements.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <div>
+                    <strong>Check Host-Based Firewalls:</strong>
+                    <p>Ensure the server’s local firewall is allowing traffic:</p>
+                    <div class="code-block">
+sudo iptables -L -n -v
+sudo ufw status
+sudo firewall-cmd --list-all
+                    </div>
+                    <p>Permit traffic on required port and reload configuration if needed.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <div>
+                    <strong>Review NAT and Port Forwarding:</strong>
+                    <p>If accessing from outside network, verify port forwarding rules:</p>
+                    <div class="code-block">
+show ip nat translations
+ip nat inside source static tcp 192.168.1.10 22 interface Gi0/1 22
+                    </div>
+                    <p>Incorrect NAT config can make port appear filtered externally.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">5</div>
+                <div>
+                    <strong>Modify or Add Required ACL/Firewall Rules:</strong>
+                    <p>Ensure that the correct traffic is permitted:</p>
+                    <div class="code-block">
+# Cisco example
+access-list 101 permit tcp any host 192.168.1.10 eq 22
+interface gi0/1
+ip access-group 101 in
+                    </div>
+                </div>
+            </div>
+        </div>
+    `,
+    packetTracer: 'CNProject/CNP/PortFilteringL4/Port Filtering.pkt',
+    topology: 'Client → Router with ACL/Firewall → Server',
+    image: 'images/port-filtering-topology.png',
+    verification: `
+        <div class="code-block">
+show access-lists
+show ip access-lists
+packet-tracer input inside tcp 192.168.1.100 12345 192.168.1.10 22
+
+# On client:
+nc -zv server-ip 22
+nmap -p 22 server-ip
+        </div>
+    `
+},
+'routing-loop': {
+    title: 'Routing Loop',
+    layer: 'Layer 3 - Network',
+    severity: 'High',
+    description: 'A routing loop occurs when packets circulate endlessly between two or more routers due to incorrect or conflicting route advertisements. This causes excessive bandwidth usage, high CPU load, and packet delivery failures. Loops are typically the result of misconfigured static routes or routing protocol issues.',
+    symptoms: [
+        'Ping and traceroute commands never reach the destination.',
+        'High CPU usage on routers involved in the loop.',
+        'Packets with continuously decreasing TTL values.',
+        '“Time Exceeded” ICMP messages returned by intermediate routers.',
+        'Application traffic fails due to path instability.'
+    ],
+    causes: [
+        'Incorrect static route configurations on one or more routers.',
+        'Split horizon disabled or route redistribution improperly configured.',
+        'Multiple default gateways on small networks without route filtering.',
+        'Route advertisement conflicts between dynamic protocols (e.g., OSPF, RIP, EIGRP).',
+        'Incorrect administrative distances causing the wrong route to be preferred.'
+    ],
+    solution: `
+        <div class="troubleshooting-steps">
+            <h4>🔧 Troubleshooting Steps:</h4>
+
+            <div class="step">
+                <div class="step-number">1</div>
+                <div>
+                    <strong>Trace the Packet Path:</strong>
+                    <p>Use traceroute to see where the packet loops occur.</p>
+                    <div class="code-block">
+traceroute destination-ip
+ping destination-ip ttl=1
+ping destination-ip ttl=2
+                    </div>
+                    <p>Loops are visible as repeating router IPs.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <div>
+                    <strong>Check Routing Tables on All Routers:</strong>
+                    <p>Compare the route to the destination on each router.</p>
+                    <div class="code-block">
+show ip route
+show ip route destination-ip
+show ip protocols
+                    </div>
+                    <p>Look for inconsistencies or recursive routing entries.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <div>
+                    <strong>Identify Problematic Route Advertisements:</strong>
+                    <p>Ensure that dynamic routing protocol settings are correct.</p>
+                    <div class="code-block">
+show ip ospf database
+show ip ospf neighbor
+show ip eigrp topology
+show ip rip database
+debug ip routing
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <div>
+                    <strong>Fix Route Filters or Static Configurations:</strong>
+                    <p>Resolve conflicting static or redistributed routes.</p>
+                    <div class="code-block">
+no ip route 10.1.0.0 255.255.0.0 192.168.1.1
+ip route 10.1.0.0 255.255.0.0 192.168.2.1
+
+# OSPF Example:
+router ospf 1
+area 0 stub no-summary
+redistribute static subnets route-map FILTER
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">5</div>
+                <div>
+                    <strong>Enable Loop Prevention Mechanisms:</strong>
+                    <p>Use TTL, split horizon, route poisoning, or hold-down timers.</p>
+                    <div class="code-block">
+# EIGRP
+router eigrp 100
+no auto-summary
+maximum-paths 1
+
+# RIP
+router rip
+split-horizon
+timers basic 30 180 180 240
+                    </div>
+                </div>
+            </div>
+        </div>
+    `,
+    packetTracer: 'Routing_Loop_Lab.pkt',
+    topology: 'Router A ↔ Router B ↔ Router C ↔ Router A',
+    verification: `
+        <div class="code-block">
+# On each router
+show ip route
+show ip ospf neighbor
+show ip protocols
+show running-config | include route
+debug ip packet
+ping destination-ip record-route
+        </div>
+    `
+},
+'ip-conflict': {
+    title: 'IP Address Conflict',
+    layer: 'Layer 3 - Network',
+    severity: 'Medium',
+    description: 'An IP address conflict happens when two devices on the same network are assigned the same IP address. This results in unpredictable behavior such as dropped connections, unreachable hosts, or fluctuating network access. These conflicts may be caused by overlapping static and DHCP assignments, duplicate MACs, or misconfigured hosts.',
+    symptoms: [
+        'Operating system shows “Duplicate IP Address Detected” warning.',
+        'Intermittent network disconnection on affected devices.',
+        'Unable to access gateway or ping nearby devices.',
+        'ARP tables show multiple MACs for the same IP.',
+        'DHCP logs show IP conflict or MAC collision messages.'
+    ],
+    causes: [
+        'Static IP address assigned to a device that falls within DHCP scope.',
+        'Two users manually assign the same IP on different machines.',
+        'DHCP server has a conflict in its lease database.',
+        'Network scanning tools or rogue devices spoof IPs.',
+        'Misconfigured virtual machines with cloned configurations.',
+        'Faulty NICs reporting incorrect MAC addresses.'
+    ],
+    solution: `
+        <div class="troubleshooting-steps">
+            <h4>🔧 Troubleshooting Steps:</h4>
+
+            <div class="step">
+                <div class="step-number">1</div>
+                <div>
+                    <strong>Detect Duplicate IP on Local Machine:</strong>
+                    <p>View ARP cache and ping behavior from multiple points on the network.</p>
+                    <div class="code-block">
+arp -a
+ping -c 3 <conflicting-ip>
+arping <conflicting-ip>
+                    </div>
+                    <p>Note if the MAC address changes across requests.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <div>
+                    <strong>Scan the Network for IP Conflicts:</strong>
+                    <p>Use tools to identify all active IP/MAC pairs.</p>
+                    <div class="code-block">
+nmap -sn 192.168.1.0/24
+sudo arp-scan -l
+Advanced IP Scanner (Windows)
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <div>
+                    <strong>Check DHCP Server Leases and Conflicts:</strong>
+                    <p>Ensure there are no stale or manually assigned overlapping IPs.</p>
+                    <div class="code-block">
+# Cisco
+show ip dhcp binding
+show ip dhcp conflict
+clear ip dhcp conflict *
+
+# Windows DHCP
+Get-DhcpServerv4Lease
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <div>
+                    <strong>Verify IP Assignment Method on Devices:</strong>
+                    <p>Ensure static IPs are outside of the DHCP scope and not duplicated.</p>
+                    <div class="code-block">
+ipconfig /all (Windows)
+ifconfig / ip addr (Linux)
+nmcli device show (Linux)
+                    </div>
+                    <p>Reconfigure device to use DHCP if unsure.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">5</div>
+                <div>
+                    <strong>Reserve or Exclude IP Addresses:</strong>
+                    <p>Prevent future conflicts by adjusting DHCP configuration.</p>
+                    <div class="code-block">
+# Cisco IOS
+ip dhcp excluded-address 192.168.1.1 192.168.1.20
+
+# Windows Server
+Add-DhcpServerv4ExclusionRange -ScopeId 192.168.1.0 -StartRange 192.168.1.1 -EndRange 192.168.1.20
+                    </div>
+                </div>
+            </div>
+        </div>
+    `,
+    packetTracer: 'IP_Conflict_Lab.pkt',
+    topology: 'DHCP Server → Switch → Multiple PCs (One with Static Conflict)',
+    verification: `
+        <div class="code-block">
+# On router/switch
+show arp
+show ip dhcp binding
+show ip dhcp conflict
+
+# On client
+ipconfig /release
+ipconfig /renew
+ping <gateway>
+        </div>
+    `
+},
+'ssh-connection-fails': {
+    title: 'SSH Connection Fails (L3 Routing Issue)',
+    layer: 'Layer 3 - Network',
+    severity: 'Medium',
+    description: 'The SSH client cannot establish a connection with the remote host due to Layer 3 network issues such as unreachable routes, subnet mismatches, misconfigured default gateways, or Access Control Lists (ACLs) that block SSH packets. Unlike encryption mismatches (Layer 6), this issue prevents TCP-level connectivity from even starting.',
+    symptoms: [
+        'SSH client hangs indefinitely at “Connecting…” stage.',
+        'No TCP SYN-ACK seen in Wireshark capture.',
+        'Ping to the remote server fails (Destination Unreachable).',
+        'Traceroute stops before reaching the SSH server.',
+        'Nmap shows port 22 as "filtered" or "host unreachable".'
+    ],
+    causes: [
+        'No Layer 3 route to the remote SSH server subnet.',
+        'Incorrect or missing default gateway on either host.',
+        'ACL or firewall blocking Layer 3 communication.',
+        'VLAN or subnet segmentation without inter-VLAN routing.',
+        'Asymmetric routing (server replies don’t return to the client).',
+        'Misconfigured routing protocol or static route omissions.'
+    ],
+    solution: `
+        <div class="troubleshooting-steps">
+            <h4>🔧 Troubleshooting Steps:</h4>
+
+            <div class="step">
+                <div class="step-number">1</div>
+                <div>
+                    <strong>Verify Layer 3 Connectivity:</strong>
+                    <p>Ensure the client and server can reach each other on the network level.</p>
+                    <div class="code-block">
+ping server-ip
+traceroute server-ip
+ip route get server-ip
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <div>
+                    <strong>Check Routing Table and Default Gateway:</strong>
+                    <p>Confirm that the router knows how to reach the destination subnet.</p>
+                    <div class="code-block">
+# Client
+ipconfig /all  (Windows)
+ip route       (Linux/macOS)
+
+# Router
+show ip route
+show running-config | include ip route
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <div>
+                    <strong>Confirm SSH Server Is Reachable via IP:</strong>
+                    <p>Even if DNS fails, IP connectivity should still be testable.</p>
+                    <div class="code-block">
+telnet server-ip 22
+nc -zv server-ip 22
+nmap -p 22 server-ip
+                    </div>
+                    <p>If none of these respond, it’s a network-level block or path failure.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <div>
+                    <strong>Review ACLs and Firewall Settings:</strong>
+                    <p>Make sure no Layer 3 device is denying traffic to TCP port 22.</p>
+                    <div class="code-block">
+# Cisco
+show access-lists
+show run | include access-group
+
+# Linux
+sudo iptables -L -n -v
+ufw status verbose
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">5</div>
+                <div>
+                    <strong>Check for Subnet and VLAN Isolation:</strong>
+                    <p>If client and server are in different VLANs or subnets, ensure routing is enabled between them.</p>
+                    <div class="code-block">
+show vlan brief
+show ip interface brief
+show ip route | include 192.168.x.x
+                    </div>
+                    <p>Inter-VLAN routing must exist on a Layer 3 device (e.g., router or L3 switch).</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">6</div>
+                <div>
+                    <strong>Configure Static Routes if Needed:</strong>
+                    <p>If dynamic routing isn’t present, add explicit static routes to the subnet.</p>
+                    <div class="code-block">
+ip route 192.168.50.0 255.255.255.0 192.168.1.1
+                    </div>
+                </div>
+            </div>
+        </div>
+    `,
+    packetTracer: 'SSH_Connection_L3_Failure_Lab.pkt',
+    topology: 'Client (VLAN 10) → Switch → Router (ACL or Route Misconfigured) → Server (VLAN 20)',
+    verification: `
+        <div class="code-block">
+# Client
+ping server-ip
+traceroute server-ip
+telnet server-ip 22
+
+# Router
+show ip route
+show ip interface brief
+show access-lists
+
+# Server
+ss -lnt
+journalctl -u ssh
+        </div>
+    `
+},
+'traffic-blocked': {
+    title: 'Traffic Blocked Due to ACL Misconfiguration',
+    layer: 'Layer 3 - Network',
+    severity: 'CiscoPacket',
+    description: 'Layer 3 traffic is blocked due to incorrectly configured Access Control Lists (ACLs) on routers or Layer 3 switches. The result is complete or partial packet drop between subnets, often with no clear error message.',
+    symptoms: [
+        'Ping between devices fails unexpectedly',
+        'Specific subnet-to-subnet traffic is dropped',
+        'Traceroute shows hops until the ACL-bound router, then stops',
+        'Service on target host is running but unreachable from outside',
+        'Devices on same VLAN/subnet communicate, but inter-VLAN fails',
+        'No firewall logs – traffic blocked silently'
+    ],
+    causes: [
+        'ACL deny rule incorrectly placed above permit statements',
+        'Implicit deny at end of ACL not accounted for',
+        'Wrong direction or interface binding for ACL',
+        'Destination subnet or wildcard mask misconfigured',
+        'ACL applied to wrong interface or VRF',
+        'Return traffic is being dropped (stateless ACL)'
+    ],
+    solution: `
+        <div class="troubleshooting-steps">
+            <h4>🔧 Troubleshooting Steps:</h4>
+
+            <div class="step">
+                <div class="step-number">1</div>
+                <div>
+                    <strong>Trace the Network Path:</strong>
+                    <p>Use ping and traceroute to identify where the packet is being dropped:</p>
+                    <div class="code-block">
+ping 192.168.2.1
+traceroute 192.168.2.1
+                    </div>
+                    <p>If the trace halts at the router enforcing the ACL, that's your suspect device.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <div>
+                    <strong>Inspect ACL Rules and Counters:</strong>
+                    <p>Check the ACL hit counters and logic flow. Look for denies above needed permits:</p>
+                    <div class="code-block">
+show access-lists
+show ip access-lists
+show run | include access-group
+                    </div>
+                    <p>Ensure that your permit rules are above any general or wildcard denies.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <div>
+                    <strong>Check ACL Binding and Direction:</strong>
+                    <p>Confirm the ACL is applied in the correct direction (inbound vs. outbound):</p>
+                    <div class="code-block">
+show run interface gi0/1
+ip access-group 101 in
+                    </div>
+                    <p>Many issues stem from applying an ACL in the wrong direction.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <div>
+                    <strong>Test Using Packet Tracer or Simulator:</strong>
+                    <p>Use simulation to observe how packets are treated by the ACL:</p>
+                    <div class="code-block">
+packet-tracer input inside icmp 192.168.1.10 8 192.168.2.20 0
+                    </div>
+                    <p>This can confirm if packets are dropped at the ACL evaluation stage.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">5</div>
+                <div>
+                    <strong>Fix and Reorder ACL Statements:</strong>
+                    <p>Ensure proper wildcard masks and order. Example fix:</p>
+                    <div class="code-block">
+access-list 101 permit ip 192.168.1.0 0.0.0.255 192.168.2.0 0.0.0.255
+access-list 101 deny ip any any
+interface gi0/1
+ip access-group 101 in
+                    </div>
+                </div>
+            </div>
+        </div>
+    `,
+    packetTracer: '../CNProject/CNP/TrafficBlockedL3/Traffic Blocked Due to ACL Misconfiguration.pkt',
+    topology: 'Client (VLAN1) → L3 Switch → Router (ACL) → Server (VLAN2)',
+    image: 'images/traffic-blocked-topology.png',
+    verification: `
+        <div class="code-block">
+show ip interface brief
+show ip route
+show ip access-lists
+packet-tracer input inside tcp 192.168.1.10 12345 192.168.2.20 80
+ping 192.168.2.20
+        </div>
+    `
+},
+'lack-of-static-route': {
+    title: 'Lack of Static Route',
+    layer: 'Layer 3 - Network',
+    severity: 'CiscoPacket',
+    description: 'This issue occurs when a router lacks a static route to reach a specific remote network, causing packets to be dropped or misrouted. Even if the source and destination devices are correctly configured, the absence of static routes on intermediary routers prevents communication.',
+    symptoms: [
+        'Ping fails between devices in different networks',
+        'Traceroute halts at the last known router',
+        '“Destination Host Unreachable” messages from intermediate hops',
+        'Service (web/SSH/etc.) unreachable despite server being online',
+        'Default gateway responds, but traffic does not reach remote subnet'
+    ],
+    causes: [
+        'Missing or misconfigured static route on the local or remote router',
+        'Only one-way routing established (return path missing)',
+        'Administrator forgot to update routing table after adding a new subnet',
+        'Incorrect next-hop IP or interface used in static route',
+        'No fallback/default route exists'
+    ],
+    solution: `
+        <div class="troubleshooting-steps">
+            <h4>🔧 Troubleshooting Steps:</h4>
+
+            <div class="step">
+                <div class="step-number">1</div>
+                <div>
+                    <strong>Confirm IP Configuration of End Devices:</strong>
+                    <p>Ensure source and destination devices are on the correct networks and have proper gateways:</p>
+                    <div class="code-block">
+ipconfig /all
+ifconfig
+ping default-gateway
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <div>
+                    <strong>Check Router Routing Tables:</strong>
+                    <p>Use routing commands to confirm whether the route exists or not:</p>
+                    <div class="code-block">
+show ip route
+show running-config | include ip route
+                    </div>
+                    <p>If the destination network is missing, traffic will be dropped at this point.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <div>
+                    <strong>Configure Static Route:</strong>
+                    <p>Add a static route to the destination network using correct next-hop or exit interface:</p>
+                    <div class="code-block">
+ip route 192.168.3.0 255.255.255.0 192.168.2.1
+                    </div>
+                    <p>Use either the next-hop IP or directly connected interface (e.g., <code>Gig0/1</code>).</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <div>
+                    <strong>Verify Bidirectional Routing:</strong>
+                    <p>Ensure return traffic can flow by checking reverse route on destination side:</p>
+                    <div class="code-block">
+ping source-ip
+traceroute destination-ip
+show ip route
+                    </div>
+                    <p>Without the reverse route, sessions may half-open and fail.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">5</div>
+                <div>
+                    <strong>Optionally Add a Default Route:</strong>
+                    <p>If this router has only one upstream path:</p>
+                    <div class="code-block">
+ip route 0.0.0.0 0.0.0.0 192.168.1.1
+                    </div>
+                </div>
+            </div>
+        </div>
+    `,
+    packetTracer: '../CNProject/CNP/Blocked Due to ACL MisconfigurationL3/ACL Misconfiguration.pkt',
+    topology: 'PC1 → Switch → Router1 → Router2 (missing route) → PC2',
+    image: 'images/lack-of-static-route-topology.png',
+    verification: `
+        <div class="code-block">
+show ip route
+show ip interface brief
+traceroute destination-ip
+ping destination-ip
+packet-tracer input inside icmp 192.168.1.10 8 192.168.3.20 0
+        </div>
+    `
+},
+'vlan-mismatch': {
+    title: 'VLAN Mismatch',
+    layer: 'Layer 2 - Data Link',
+    severity: 'Medium',
+    description: 'A VLAN mismatch occurs when two ends of a trunk link are configured with different native VLANs or the allowed VLAN list does not match. This causes untagged frames to be misclassified, resulting in loss of communication between devices across switches.',
+    symptoms: [
+        'Devices connected to different switches cannot communicate despite being in the same logical VLAN.',
+        '“Request timed out” responses to pings between hosts on separate switches.',
+        'STP topology changes or inconsistencies.',
+        'Trunk ports show unexpected traffic drops or errors.',
+        'Native VLAN mismatch log messages on Cisco devices.'
+    ],
+    causes: [
+        'Trunk ports on either side have different native VLAN configurations.',
+        'Allowed VLANs list does not include the target VLAN on both ends.',
+        'VLAN not defined on one or both switches.',
+        'Access port assigned to wrong VLAN.',
+        'Inconsistent VTP domains or pruning settings.'
+    ],
+    solution: `
+        <div class="troubleshooting-steps">
+            <h4>🔧 Troubleshooting Steps:</h4>
+
+            <div class="step">
+                <div class="step-number">1</div>
+                <div>
+                    <strong>Verify Trunk Port Configuration:</strong>
+                    <p>Ensure both sides of the trunk link are using the same native VLAN and allowed VLANs.</p>
+                    <div class="code-block">
+# Cisco
+show interfaces trunk
+show interfaces <intf> switchport
+show running-config interface <intf>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <div>
+                    <strong>Check VLAN Definitions:</strong>
+                    <p>Verify that the VLAN exists and is active on both switches.</p>
+                    <div class="code-block">
+show vlan brief
+show vlan id <vlan-id>
+                    </div>
+                    <p>If the VLAN is missing, add it using:</p>
+                    <div class="code-block">
+vlan <vlan-id>
+name <vlan-name>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <div>
+                    <strong>Compare Native VLAN Settings:</strong>
+                    <p>Make sure both trunk ports have the same native VLAN configured.</p>
+                    <div class="code-block">
+interface <trunk-intf>
+switchport trunk native vlan <vlan-id>
+                    </div>
+                    <p>Use logs to check for mismatch warnings:</p>
+                    <div class="code-block">
+show logging | include VLAN_MISMATCH
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <div>
+                    <strong>Test End-to-End Connectivity:</strong>
+                    <p>Check if devices in the same VLAN can communicate across switches.</p>
+                    <div class="code-block">
+ping <remote-host>
+show mac address-table vlan <vlan-id>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">5</div>
+                <div>
+                    <strong>Synchronize Allowed VLANs:</strong>
+                    <p>Ensure the same VLANs are allowed on both trunk interfaces.</p>
+                    <div class="code-block">
+interface <trunk-intf>
+switchport trunk allowed vlan 10,20,30
+                    </div>
+                    <p>Mismatches here cause silent traffic drops for disallowed VLANs.</p>
+                </div>
+            </div>
+        </div>
+    `,
+    packetTracer: 'VLAN_Mismatch_Lab.pkt',
+    topology: 'PC1 (VLAN 10) → Switch1 → Trunk → Switch2 → PC2 (VLAN 10)',
+    verification: `
+        <div class="code-block">
+show vlan brief
+show interfaces trunk
+show mac address-table vlan 10
+ping <other-host-ip>
+        </div>
+    `
+},
+'stp-convergence': {
+    title: 'STP Convergence Issues',
+    layer: 'Layer 2 - Data Link',
+    severity: 'Medium',
+    description: 'STP (Spanning Tree Protocol) convergence issues occur when Layer 2 switching loops are not resolved efficiently, or the network takes too long to reestablish a loop-free topology after a topology change. This results in temporary communication loss, broadcast storms, or inconsistent connectivity.',
+    symptoms: [
+        'Temporary loss of connectivity between switches or VLANs.',
+        'Frequent STP topology changes (TCA events).',
+        'MAC address table entries flap or disappear.',
+        'Ports stuck in listening/learning state for too long.',
+        'Broadcast storms or looping traffic observed on Wireshark.'
+    ],
+    causes: [
+        'Root bridge not explicitly configured, leading to unpredictable STP elections.',
+        'STP mode is legacy (PVST or STP) instead of RSTP/MSTP.',
+        'PortFast not enabled on access ports, delaying link-up transitions.',
+        'BPDU Guard or BPDU Filter misconfiguration.',
+        'Redundant links without proper loop prevention or STP tuning.'
+    ],
+    solution: `
+        <div class="troubleshooting-steps">
+            <h4>🔧 Troubleshooting Steps:</h4>
+
+            <div class="step">
+                <div class="step-number">1</div>
+                <div>
+                    <strong>Analyze STP Status and Topology:</strong>
+                    <p>Determine the current STP mode and check root bridge identity and port states.</p>
+                    <div class="code-block">
+show spanning-tree
 show spanning-tree root
-show spanning-tree interface detail</div>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">2</div>
-                            <div>
-                                <strong>Root Bridge Verification:</strong>
-                                <div class="code-block">show spanning-tree summary
-show spanning-tree bridge
-debug spanning-tree events</div>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">3</div>
-                            <div>
-                                <strong>STP Optimization:</strong>
-                                <div class="code-block"># Root Bridge Setup
+show spanning-tree vlan <vlan-id>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <div>
+                    <strong>Check for Frequent Topology Changes:</strong>
+                    <p>High TCN (Topology Change Notifications) indicate instability.</p>
+                    <div class="code-block">
+show spanning-tree detail | include topology change
+show logging | include TCN
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <div>
+                    <strong>Manually Set the Root Bridge:</strong>
+                    <p>Avoid elections by setting a known, stable switch as root.</p>
+                    <div class="code-block">
 spanning-tree vlan 1 priority 4096
-# PortFast Configuration
-interface range gi0/1-24
+                    </div>
+                    <p>Lower values are preferred (default is 32768).</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <div>
+                    <strong>Enable PortFast on Access Ports:</strong>
+                    <p>This prevents STP delays for end devices and reduces convergence time.</p>
+                    <div class="code-block">
+interface range gi0/1 - 24
 spanning-tree portfast
-spanning-tree bpduguard enable</div>
-                            </div>
-                        </div>
                     </div>
-                `,
-                packetTracer: 'STP_Convergence_Lab.pkt',
-                topology: 'Switch1 ↔ Switch2 ↔ Switch3 ↔ Switch1 (Triangle)',
-                verification: `
-                    <div class="code-block">show spanning-tree summary totals
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">5</div>
+                <div>
+                    <strong>Configure STP Protection Mechanisms:</strong>
+                    <p>Use BPDU Guard to prevent rogue switches from becoming part of the topology.</p>
+                    <div class="code-block">
+interface range gi0/1 - 24
+spanning-tree bpduguard enable
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">6</div>
+                <div>
+                    <strong>Consider Upgrading STP Mode:</strong>
+                    <p>Use Rapid Spanning Tree Protocol (RSTP) or Multiple STP (MST) for faster convergence.</p>
+                    <div class="code-block">
+spanning-tree mode rapid-pvst
+                    </div>
+                </div>
+            </div>
+        </div>
+    `,
+    packetTracer: 'STP_Convergence_Lab.pkt',
+    topology: 'Switch1 ↔ Switch2 ↔ Switch3 (Redundant Triangle Topology)',
+    verification: `
+        <div class="code-block">
+show spanning-tree summary totals
 show spanning-tree inconsistentports
-show spanning-tree statistics</div>
-                `
-            },
-            'cable-fault': {
-                title: 'Cable Fault',
-                layer: 'Layer 1 - Physical',
-                severity: 'High',
-                description: 'Ağ kabloları hasarlı, bağlantısız veya yanlış tip kablo kullanılıyor.',
-                symptoms: [
-                    'Link down status',
-                    'No carrier signal',
-                    'High error rates',
-                    'Intermittent connections'
-                ],
-                causes: [
-                    'Damaged cables',
-                    'Loose connections',
-                    'Wrong cable type',
-                    'Electromagnetic interference'
-                ],
-                solution: `
-                    <div class="troubleshooting-steps">
-                        <h4>🔧 Troubleshooting Adımları:</h4>
-                        <div class="step">
-                            <div class="step-number">1</div>
-                            <div>
-                                <strong>Physical Link Check:</strong>
-                                <div class="code-block">show interfaces status
-show interfaces gi0/1
-show controllers ethernet gi0/1</div>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">2</div>
-                            <div>
-                                <strong>Cable Testing:</strong>
-                                <div class="code-block"># Cable TDR Test
-test cable-diagnostics tdr interface gi0/1
-show cable-diagnostics tdr interface gi0/1</div>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">3</div>
-                            <div>
-                                <strong>Interface Reset:</strong>
-                                <div class="code-block">interface gi0/1
-shutdown
-no shutdown
-# Auto-negotiation
-speed auto
-duplex auto</div>
-                            </div>
-                        </div>
+show spanning-tree interface <intf> detail
+ping between hosts across different switches
+        </div>
+    `
+},
+            'mac-flapping': {
+    title: 'MAC Address Flapping',
+    layer: 'Layer 2 - Data Link',
+    severity: 'CiscoPacket',
+    description: 'MAC address flapping occurs when the same MAC address is learned on multiple switch ports, rapidly changing back and forth. This typically indicates a switching loop or misconfigured virtual environment, leading to instability in the MAC address table.',
+    symptoms: [
+        'Unstable or intermittent connectivity for affected hosts',
+        'High CPU usage on switches',
+        'MAC address table shows same MAC on multiple ports',
+        'Flooding of broadcast and unknown unicast traffic',
+        'Spanning-tree topology changes detected frequently'
+    ],
+    causes: [
+        'Switching loop due to redundant connections without STP',
+        'Incorrect NIC teaming/bonding configuration on VMs',
+        'Bridged virtual NICs improperly connected',
+        'Link aggregation misconfiguration (LACP vs. static)',
+        'Two switches directly connected with multiple cables and no STP',
+        'A VM cloned without MAC regeneration'
+    ],
+    solution: `
+        <div class="troubleshooting-steps">
+            <h4>🔧 Troubleshooting Steps:</h4>
+
+            <div class="step">
+                <div class="step-number">1</div>
+                <div>
+                    <strong>Identify Flapping MAC Addresses:</strong>
+                    <p>Use MAC address table commands to locate the problematic address:</p>
+                    <div class="code-block">
+show mac address-table | include xxxx.xxxx.xxxx
+show logging | include MAC
                     </div>
-                `,
-                packetTracer: 'Cable_Fault_Lab.pkt',
-                topology: 'PC → Faulty Cable → Switch → Router',
-                verification: `
-                    <div class="code-block">show interfaces counters errors
-show environment power
-show interfaces description</div>
-                `
-            },
+                    <p>Look for one MAC address appearing rapidly on multiple interfaces.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <div>
+                    <strong>Enable STP (Spanning Tree Protocol):</strong>
+                    <p>If STP is disabled, enable it to prevent switching loops:</p>
+                    <div class="code-block">
+spanning-tree vlan 1
+show spanning-tree
+                    </div>
+                    <p>Ensure root bridge and topology are stable (no frequent recalculation).</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <div>
+                    <strong>Isolate the Affected Ports:</strong>
+                    <p>Temporarily shut down or disconnect suspicious ports and observe MAC stability:</p>
+                    <div class="code-block">
+interface range fa0/1 - 2
+shutdown
+                    </div>
+                    <p>Re-enable one-by-one and monitor for recurring MAC flaps.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <div>
+                    <strong>Correct Virtual Environment Settings:</strong>
+                    <p>On ESXi/Hyper-V or similar platforms:</p>
+                    <ul>
+                      <li>Ensure NIC teaming uses active-passive or LACP</li>
+                      <li>Disable promiscuous mode unless required</li>
+                      <li>Check if duplicate MACs exist in VMs</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">5</div>
+                <div>
+                    <strong>Configure Port Security (Optional):</strong>
+                    <p>Limit the number of MACs learned on a port:</p>
+                    <div class="code-block">
+interface fa0/1
+switchport port-security
+switchport port-security maximum 1
+switchport port-security violation shutdown
+                    </div>
+                    <p>This helps detect and prevent abnormal MAC learning behavior.</p>
+                </div>
+            </div>
+        </div>
+    `,
+    packetTracer: '../CNProject/CNP/MACFlappingL2/Cisco.pkt',
+    topology: 'Switch1 ↔ Switch2 ↔ VMs (loop or duplicate MAC)',
+    image: 'images/mac-flapping-topology.png',
+    verification: `
+        <div class="code-block">
+show mac address-table
+show spanning-tree
+show log | include MAC
+debug sw-mac
+        </div>
+    `
+},
+'cable-fault': {
+    title: 'Cable Fault (Physical Link Failure)',
+    layer: 'Layer 1 - Physical',
+    severity: 'High',
+    description: 'A cable fault occurs when a network cable is physically damaged, disconnected, miswired, or otherwise unable to carry the electrical signal required for data transmission. As a result, devices connected by that cable will lose connectivity, and higher-layer protocols will fail.',
+    symptoms: [
+        'No link lights on NIC or switch port.',
+        '“Network cable unplugged” or similar OS message.',
+        'Ping fails instantly with “Destination Host Unreachable”.',
+        'Interface shows down/down or err-disabled state.',
+        'Intermittent connectivity or high packet loss on a specific link.'
+    ],
+    causes: [
+        'Cut, bent, or crushed Ethernet cable.',
+        'Broken connector or misaligned pins in RJ-45 jack.',
+        'Cable pulled tightly, causing internal wire fracture.',
+        'Incorrect cabling (e.g., using crossover instead of straight-through).',
+        'Cable exposed to moisture, EMI, or rodents.',
+        'Poor-quality or non-compliant Ethernet cable (Cat5 vs. Cat6).'
+    ],
+    solution: `
+        <div class="troubleshooting-steps">
+            <h4>🔧 Troubleshooting Steps:</h4>
+
+            <div class="step">
+                <div class="step-number">1</div>
+                <div>
+                    <strong>Perform Physical Inspection:</strong>
+                    <p>Check cable path for visible signs of damage or tension.</p>
+                    <div class="code-block">
+• Inspect both ends (RJ-45 connectors) for bent pins or looseness.  
+• Look for bends sharper than 90°.  
+• Ensure cable isn’t routed under chairs, doors, or heat sources.
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <div>
+                    <strong>Test with a Known-Good Cable:</strong>
+                    <p>Replace the existing cable with a tested, working cable.</p>
+                    <div class="code-block">
+# If link lights appear after replacement:
+→ Original cable is confirmed faulty.
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <div>
+                    <strong>Use a Cable Tester or TDR Tool:</strong>
+                    <p>Check for continuity, shorts, split pairs, and attenuation.</p>
+                    <div class="code-block">
+• Use a handheld cable tester:  
+  → Should show all 8 pins connected properly (1-8 straight).  
+• Use TDR (Time Domain Reflectometer) for precise fault location.
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <div>
+                    <strong>Check Interface Status on Devices:</strong>
+                    <p>Validate whether the connected interfaces detect a physical signal.</p>
+                    <div class="code-block">
+# On Cisco Switch:
+show interfaces status
+show interfaces <intf> | include protocol
+
+# On Linux:
+ethtool eth0
+
+# On Windows:
+Get-NetAdapter | Format-Table Name, Status, LinkSpeed
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">5</div>
+                <div>
+                    <strong>Ensure Proper Cable Standards:</strong>
+                    <p>Verify that correct cable type is used (Cat5e/Cat6 for Gigabit).</p>
+                    <div class="code-block">
+• Avoid flat cables or unshielded cords near interference sources.  
+• Confirm compliance with ANSI/TIA 568 standards.
+                    </div>
+                </div>
+            </div>
+        </div>
+    `,
+    packetTracer: 'Cable_Fault_Lab.pkt',
+    topology: 'PC ↔ Ethernet Cable ↔ Switch (Fault occurs on cable segment)',
+    verification: `
+        <div class="code-block">
+# Cisco
+show interfaces <intf> status
+show interface counters errors
+
+# PC
+ping default-gateway
+ethtool eth0 (Linux)
+Device Manager → Network Adapter → Status (Windows)
+
+# Physical
+Check if switch port LED is lit
+Try known-good port and cable
+        </div>
+    `
+},
+'port-error': {
+    title: 'Port Error (Interface Down or Malfunction)',
+    layer: 'Layer 1 - Physical',
+    severity: 'CiscoPacket',
+    description: 'Port errors occur when a physical network interface becomes administratively or operationally down, malfunctions due to hardware issues, or reports abnormal errors like CRC or input drops. These errors break Layer 1 connectivity and can prevent higher-layer protocols from functioning.',
+    symptoms: [
+        'Link LEDs on switch/router port are off or blinking abnormally',
+        'Interface status shows “administratively down” or “err-disabled”',
+        'Frequent disconnection or high packet loss from end device',
+        'CRC/Input/Output errors incrementing on specific ports',
+        'Ping fails to local gateway (Layer 2 is fine but port is dead)'
+    ],
+    causes: [
+        'Interface manually shut down (admin down)',
+        'Faulty cable, connector, or transceiver (SFP/RJ45)',
+        'Auto-negotiation or duplex mismatch',
+        'High number of CRC or runts (physical interference)',
+        'Loopback error detection triggered port shutdown',
+        'Port security or BPDU guard violation triggered error-disable'
+    ],
+    solution: `
+        <div class="troubleshooting-steps">
+            <h4>🔧 Troubleshooting Steps:</h4>
+
+            <div class="step">
+                <div class="step-number">1</div>
+                <div>
+                    <strong>Check Interface Status:</strong>
+                    <p>Use CLI to determine current operational and administrative status:</p>
+                    <div class="code-block">
+show ip interface brief
+show interfaces status
+show interfaces fa0/1
+                    </div>
+                    <p>Look for “administratively down”, “err-disabled”, or low-level errors (CRC).</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <div>
+                    <strong>Physically Inspect Cable and LED:</strong>
+                    <p>Verify that cable is fully plugged in and the port LED is green or amber (not off).</p>
+                    <ul>
+                        <li>Replace cable if damaged or low quality</li>
+                        <li>Try plugging into another port</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <div>
+                    <strong>Bring Port Back Online:</strong>
+                    <p>If the port is “administratively down”, re-enable it:</p>
+                    <div class="code-block">
+interface fa0/1
+no shutdown
+                    </div>
+                    <p>If the port is <code>err-disabled</code>, check reason and recover manually or auto:</p>
+                    <div class="code-block">
+show errdisable recovery
+errdisable recovery cause all
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <div>
+                    <strong>Check for Duplex or Speed Mismatch:</strong>
+                    <p>Mismatched speed/duplex settings can cause runts or collisions:</p>
+                    <div class="code-block">
+show interfaces fa0/1
+speed 100
+duplex full
+                    </div>
+                    <p>Ensure both ends are either manually matched or both on auto.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">5</div>
+                <div>
+                    <strong>Replace or Move Interface if Needed:</strong>
+                    <p>If port shows persistent physical errors (FCS, input errors), move to another port:</p>
+                    <div class="code-block">
+show interfaces fa0/1 | include errors
+                    </div>
+                    <p>Interface hardware may be failing or dirty pins may cause flapping.</p>
+                </div>
+            </div>
+        </div>
+    `,
+    packetTracer: '../CNProject/CNP/PortErrorL1/Port Error.pkt"t',
+    topology: 'PC ↔ Faulty Cable ↔ Switch (Port Admin Down or CRC Errors)',
+    image: 'images/port-error-topology.png',
+    verification: `
+        <div class="code-block">
+show ip interface brief
+show interfaces fa0/1
+show logging | include err
+ping default-gateway
+        </div>
+    `
+},
+'incorrect-cable': {
+    title: 'Incorrect Cable Connection',
+    layer: 'Layer 1 - Physical',
+    severity: 'CiscoPacket',
+    description: 'An incorrect cable type or connection can prevent communication between network devices at the physical layer. This occurs when, for example, two switches are connected using a straight-through cable instead of a crossover, or when the port types are mismatched.',
+    symptoms: [
+        'No link lights on connected interfaces',
+        'Interface status shows “administratively up, line protocol down”',
+        'Devices cannot ping each other despite correct IP configuration',
+        'Packet Tracer shows red “X” between devices',
+        'Changing cable type restores connectivity'
+    ],
+    causes: [
+        'Using straight-through cable between two similar devices (switch-to-switch, router-to-router)',
+        'Using crossover cable between dissimilar devices (PC-to-switch)',
+        'Plugging into wrong port type (console instead of Ethernet)',
+        'Broken or low-quality cable that doesn’t follow pinout standards',
+        'Mismatched fiber transceivers (e.g., LC-SC with no media converter)'
+    ],
+    solution: `
+        <div class="troubleshooting-steps">
+            <h4>🔧 Troubleshooting Steps:</h4>
+
+            <div class="step">
+                <div class="step-number">1</div>
+                <div>
+                    <strong>Visually Inspect the Cable Type:</strong>
+                    <p>Check if the cable is straight-through or crossover. Typical usage:</p>
+                    <ul>
+                      <li><strong>Straight-through:</strong> PC ↔ Switch, Router ↔ Switch</li>
+                      <li><strong>Crossover:</strong> Switch ↔ Switch, PC ↔ Router (older devices)</li>
+                    </ul>
+                    <p>In Packet Tracer, check the cable color:</p>
+                    <ul>
+                      <li>Green = Straight-through</li>
+                      <li>Red = Crossover</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <div>
+                    <strong>Check Interface Status:</strong>
+                    <p>Use commands to see if the interface detects the link:</p>
+                    <div class="code-block">
+show ip interface brief
+show interfaces fa0/1
+                    </div>
+                    <p>If interface is “up/down”, it's likely a cabling issue.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <div>
+                    <strong>Replace Cable with Correct Type:</strong>
+                    <p>In Packet Tracer or real devices, replace with proper cable:</p>
+                    <ul>
+                      <li>Switch to Switch → <code>Crossover</code></li>
+                      <li>PC to Switch → <code>Straight-through</code></li>
+                      <li>Console connection → <code>Console cable</code></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <div>
+                    <strong>Use Auto-MDIX Feature (if supported):</strong>
+                    <p>Newer Cisco devices auto-adjust cable type internally:</p>
+                    <div class="code-block">
+show controllers ethernet-controller
+                    </div>
+                    <p>Still use correct cables for consistent behavior and compatibility.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">5</div>
+                <div>
+                    <strong>Verify Physical Port:</strong>
+                    <p>Ensure you are using Ethernet/Data ports, not Console or AUX:</p>
+                    <div class="code-block">
+interface fa0/0
+no shutdown
+                    </div>
+                    <p>Port could be administratively shut down or wrongly used.</p>
+                </div>
+            </div>
+        </div>
+    `,
+    packetTracer: '../CNProject/CNP/Incorrect Cable ConnectionL1/Incorrect Cable Connection Between Switch and PC.pkt',
+    topology: 'Switch ↔ Switch (Incorrect Cable) or PC ↔ Switch (Wrong Cable)',
+    image: 'images/incorrect-cable-topology.png',
+    verification: `
+        <div class="code-block">
+show ip interface brief
+show interfaces
+show cable-diagnostics tdr interface fa0/1
+ping default-gateway
+        </div>
+    `
+},
             'interface-error': {
                 title: 'Interface Error Rate',
                 layer: 'Layer 1 - Physical',
@@ -1237,28 +2975,28 @@ show logging | include interface</div>
             const modalBody = document.getElementById('modal-body');
             modalBody.innerHTML = `
                 <div class="section">
-                    <h3>📋 Problem Özeti</h3>
-                    <p><strong>Katman:</strong> ${problem.layer}</p>
-                    <p><strong>Önem Derecesi:</strong> <span class="problem-severity ${problem.severity.toLowerCase()}">${problem.severity}</span></p>
-                    <p><strong>Açıklama:</strong> ${problem.description}</p>
+                    <h3>📋 Problem Summary</h3>
+                    <p><strong>Layer:</strong> ${problem.layer}</p>
+                    <p><strong>Importance Level:</strong> <span class="problem-severity ${problem.severity.toLowerCase()}">${problem.severity}</span></p>
+                    <p><strong>Explanation:</strong> ${problem.description}</p>
                 </div>
 
                 <div class="section">
-                    <h3>🔍 Belirtiler</h3>
+                    <h3>🔍 Symptoms</h3>
                     <ul>
                         ${problem.symptoms.map(symptom => `<li>${symptom}</li>`).join('')}
                     </ul>
                 </div>
 
                 <div class="section">
-                    <h3>⚠️ Olası Nedenler</h3>
+                    <h3>⚠️ Possible Causes</h3>
                     <ul>
                         ${problem.causes.map(cause => `<li>${cause}</li>`).join('')}
                     </ul>
                 </div>
 
                 <div class="section">
-                    <h3>💡 Çözüm</h3>
+                    <h3>💡 Solution</h3>
                     ${problem.solution}
                 </div>
 
@@ -1288,17 +3026,19 @@ show logging | include interface</div>
                     <button class="packet-tracer-btn" onclick="showRelatedProblems('${problemId}')">🔗 İlgili Problemler</button>
                 </div>
             `;
-
             document.getElementById('problemModal').style.display = 'block';
         }
-
         function closeModal() {
             document.getElementById('problemModal').style.display = 'none';
         }
-
         function downloadPkt(filename) {
-            alert(`📥 ${filename} dosyası indiriliyor...\n\nBu dosya şunları içerir:\n• Tam network topology\n• Önceden yapılandırılmış cihazlar\n• Problem senaryosu\n• Step-by-step lab guide`);
-        }
+    const link = document.createElement('a');
+    link.href = filename;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
 
         function showTopologyDetails(problemId) {
             const problem = problems[problemId];
@@ -1341,6 +3081,37 @@ show logging | include interface</div>
                     }, 100);
                 }, index * 100);
             });
+        });
+        // Footer bilgisi ekle
+        function addFooter() {
+            const footer = document.createElement('div');
+            footer.style.cssText = `
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                border-radius: 15px;
+                padding: 25px;
+                margin-top: 40px;
+                text-align: center;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            `;
+            footer.innerHTML = `
+                <div style="border-top: 2px solid #667eea; padding-top: 20px;">
+                    <h3 style="color: #667eea; margin-bottom: 15px;">📧 İletişim & Destek</h3>
+                    <p style="margin-bottom: 10px;"><strong>👨‍💻 Geliştirici:</strong> Eren Atasun</p>
+                    <p style="margin-bottom: 10px;"><strong>📚 Linkedin:</strong> https://www.linkedin.com/in/erenatasun/</p>
+                    <p style="margin-bottom: 10px;"><strong>🎯 GitHub:</strong> https://github.com/ErenAtasun</p>
+                    <p style="margin-bottom: 15px;"><strong>📅 Güncelleme:</strong> ${new Date().toLocaleDateString('tr-TR')}</p>
+                    <div style="background: linear-gradient(45deg, #667eea, #764ba2); color: white; padding: 10px; border-radius: 8px; margin-top: 15px;">
+                        <p style="margin: 0; font-size: 0.9rem;">🚀 Computer Networks - Network Troubleshooting Guide.</p>
+                    </div>
+                </div>
+            `;
+            document.querySelector('.container').appendChild(footer);
+        }
+
+        // Sayfa yüklendiğinde footer ekle
+        document.addEventListener('DOMContentLoaded', function() {
+            addFooter();
         });
     </script>
 </body>
